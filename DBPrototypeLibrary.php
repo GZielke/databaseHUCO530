@@ -44,9 +44,9 @@ function insertNewEvent($dbPipeline){
 	echo "New event created!";
 };
 
-function insertNewCompleteEvent($dbPipeline, $journal){
-	$eventCompleteQuery = "INSERT INTO eventCompletion(username, eventName, dateComplete, journal) VALUES('{$_POST['user']}', '{$_POST['event']}', NOW(), '$journal')";
-	mysqli_query($dbPipeline, $eventCompleteQuery);\
+function insertNewCompleteEvent($dbPipeline){
+	$eventCompleteQuery = "INSERT INTO eventCompletion(username, eventName, dateComplete, journal) VALUES('{$_POST['ev_input_user']}', '{$_POST['ev_input_event']}', NOW(), '{$_POST['ev_input_journal']}')";
+	mysqli_query($dbPipeline, $eventCompleteQuery);
 	echo "Congratulations! You completed an event!";
 };
 
@@ -68,9 +68,7 @@ function timeOut($dbPipeline){
 
 function getEventHistory($dbPipeline){
 	//Needs to look up all of the eventCompletion entries that correspond to the user.
-	/**/ 
 	echo "getEventHistory() is being called.<br>";
-	$informationArray = array();
 	$eventHistoryQuery = "SELECT user.firstName, user.lastName, event.eventName, event.eventCategory, event.eventLocation, event.points, eventCompletion.dateComplete FROM user, eventCompletion, event WHERE user.id = '{$_POST['getEventHistoryId']}' AND user.id = eventCompletion.username AND eventCompletion.eventName = event.id";
 	$historyCloud = mysqli_query($dbPipeline, $eventHistoryQuery);
 	while($historyData = mysqli_fetch_assoc($historyCloud)){

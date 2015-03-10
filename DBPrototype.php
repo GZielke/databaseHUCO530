@@ -16,7 +16,7 @@ include_once 'DBPrototypeLibrary.php';
 if(isset($_POST['insertingUser'])){
 	insertNewUser($dbPipeline);
 } elseif(isset($_POST['insertingEventComplete'])){
-	insertNewCompleteEvent($dbPipeline, $_POST['journal']);
+	insertNewCompleteEvent($dbPipeline);
 } elseif(isset($_POST['insertingNewEvent'])){
 	insertNewEvent($dbPipeline);
 } elseif(isset($_POST['timeInComplete'])){
