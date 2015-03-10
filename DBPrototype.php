@@ -143,6 +143,7 @@ if(isset($_POST['insertingUser'])){
 			wrapInOptionsTags(listAllUsers($dbPipeline));
 		?>
 	</select>
+	<input type='submit' name='submit' id='submit' value='Search'>
 </form>
 
 </body>
