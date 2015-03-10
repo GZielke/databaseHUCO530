@@ -30,11 +30,6 @@ if(isset($_POST['insertingUser'])){
 };
 ?>
 
-<form name='search' id='search' method='post'>
-	<h2>Search for user:</h2>
-	<input type="text" name='user_search' id='user_search'><br>
-	<input type="submit" name="submit" id="submit" value="Submit">
-</form>
 <form name='user_input' id='user_input' method='post'>
 	<h2>Input New User</h2><br>
 	First Name:
