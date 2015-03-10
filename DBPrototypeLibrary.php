@@ -69,23 +69,25 @@ function timeOut($dbPipeline){
 
 function getEventHistory($dbPipeline){
 	//Needs to look up all of the eventCompletion entries that correspond to the user.
+	/**/ 
+	echo "getEventHistory() is being called.<br>";
 	$informationArray = array();
-	$eventHistoryQuery = "SELECT user.firstName, user.lastName, event.eventName, event.eventCategory, event.eventLocation, event.points, eventCompletion.dateComplete FROM user, eventCompletion, event WHERE user.id = {$_POST['getEventHistoryId']}, user.id = eventCompletion.username, eventCompletion.eventName = event.id";
+	$eventHistoryQuery = "SELECT user.firstName, user.lastName, event.eventName, event.eventCategory, event.eventLocation, event.points, eventCompletion.dateComplete FROM user, eventCompletion, event WHERE user.id = '{$_POST['getEventHistoryId']}' AND user.id = eventCompletion.username AND eventCompletion.eventName = event.id";
 	$historyCloud = mysqli_query($dbPipeline, $eventHistoryQuery);
 	while($historyData = mysqli_fetch_assoc($historyCloud)){
-		echo $historyData['user.firstName'];
+		echo $historyData['lastName'];
+		echo ", ";
+		echo $historyData['firstName'];
 		echo " | ";
-		echo $historyData['user.lastName'];
+		echo $historyData['eventName'];
 		echo " | ";
-		echo $historyData['event.eventName'];
+		echo $historyData['eventCategory'];
 		echo " | ";
-		echo $historyData['event.eventCategory'];
+		echo $historyData['eventLocation'];
 		echo " | ";
-		echo $historyData['event.eventLocation'];
+		echo $historyData['points'];
 		echo " | ";
-		echo $historyData['event.points'];
-		echo " | ";
-		echo $historyData['eventCompletion.dateComplete'];
+		echo $historyData['dateComplete'];
 		echo "<br>";
 	};
 };
