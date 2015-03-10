@@ -4,16 +4,11 @@ function insertNewUser($dbPipeline) {
 	$DOB = combineDate($_POST['user_input_year'],$_POST['user_input_month'],$_POST['user_input_day']);
 	$userQuery = "INSERT INTO user VALUES(NULL, '{$_POST['user_input_firstName']}', '{$_POST['user_input_lastName']}', '$DOB', '{$_POST['user_input_username']}', '{$_POST['user_input_password']}')";
 	mysqli_query($dbPipeline, $userQuery);
+	echo "Inserted new user into the database!";
 };
 
 function combineDate($year, $month, $day){
-	echo "$year"."-"."$month"."-"."$day";
 	return "$year"."-"."$month"."-"."$day";
-};
-
-function searchUser($dbPipeline, $username) {
-	//query SELECT user.username, event.points FROM user, eventCompletion, event WHERE user.id = eventCompletion.username, eventCompletion.eventName = event.id user.username = $username
-	
 };
 
 function listAllUsers($dbPipeline) {
@@ -46,11 +41,13 @@ function insertNewEvent($dbPipeline){
 	$realPointInteger = intval($_POST['new_event_points']);
 	$eventQuery = "INSERT INTO event VALUES(NULL, '{$_POST['new_event_eventName']}', '{$_POST['new_event_eventCategory']}', '{$_POST['new_event_eventLocation']}', '$realPointInteger')";
 	mysqli_query($dbPipeline, $eventQuery);
+	echo "New event created!";
 };
 
 function insertNewCompleteEvent($dbPipeline, $journal){
 	$eventCompleteQuery = "INSERT INTO eventCompletion(username, eventName, dateComplete, journal) VALUES('{$_POST['user']}', '{$_POST['event']}', NOW(), '$journal')";
-	mysqli_query($dbPipeline, $eventCompleteQuery);
+	mysqli_query($dbPipeline, $eventCompleteQuery);\
+	echo "Congratulations! You completed an event!";
 };
 
 function timeIn($dbPipeline){
@@ -58,6 +55,7 @@ function timeIn($dbPipeline){
     //i.e. INSERT INTO clock VALUES(NULL, *user id*, NULL, NULL)
     $timeInQuery = "INSERT INTO clock VALUES(NULL,'{$_POST['timeInId']}',NULL,NULL)";
     mysqli_query($dbPipeline,$timeInQuery);
+	echo "You have checked in!";
 };
 
 function timeOut($dbPipeline){
@@ -65,6 +63,7 @@ function timeOut($dbPipeline){
     //We can find the "current" section by adding "WHERE timeIn = timeOut".
     $timeOutQuery = "UPDATE clock SET timeOut = NOW() WHERE username = '{$_POST['timeOutId']}' ORDER BY timeIn DESC LIMIT 1";
     mysqli_query($dbPipeline,$timeOutQuery);
+	echo "You have checked out!";
 };
 
 function getEventHistory($dbPipeline){
