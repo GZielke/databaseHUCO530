@@ -67,4 +67,16 @@ function timeOut($dbPipeline){
     mysqli_query($dbPipeline,$timeOutQuery);
 };
 
+function getEventHistory($dbPipeline){
+	//Needs to look up all of the eventCompletion entries that correspond to the user.
+	$eventHistoryQuery = "SELECT user.firstName, user.lastName, event.eventName, event.eventCategory, event.eventLocation, event.points, eventCompletion.dateComplete 
+	FROM user, eventCompletion, event 
+	WHERE user.username = {$_POST['getEventHistoryId]}, user.id = eventCompletion.username, eventCompletion.eventName = event.id";
+	$historyCloud = mysqli_query($dbPipeline, $eventHistoryQuery);
+	while($historyData = mysqli_fetch_assoc($historyCloud)){
+		$simpleDisplay = $historyData['user.firstName'];
+	};
+	return $simpleDisplay
+};
+
 ?>
