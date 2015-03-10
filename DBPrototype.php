@@ -20,9 +20,13 @@ if(isset($_POST['insertingUser'])){
 } elseif(isset($_POST['insertingNewEvent'])){
 	insertNewEvent($dbPipeline);
 } elseif(isset($_POST['timeInComplete'])){
-    timeIn($dbPipeline);
+	 timeIn($dbPipeline);
 } elseif(isset($_POST['timeOutComplete'])){
-    timeOut($dbPipeline);
+	 timeOut($dbPipeline);
+} elseif(isset($_POST['searchUserComplete'])){
+	searchUser($dbPipeline);
+} elseif(isset($_POST['getEventHistoryComplete'])){
+	getEventHistory($dbPipeline);
 };
 ?>
 
@@ -143,7 +147,19 @@ if(isset($_POST['insertingUser'])){
 			wrapInOptionsTags(listAllUsers($dbPipeline));
 		?>
 	</select>
+	<input type = "hidden" name = "searchUserComplete" id = "searchUserComplete" value = "true">
 	<input type='submit' name='submit' id='submit' value='Search'>
+</form>
+
+<form name = "getEventHistory" id = "getEventHistory" method = "post">
+	Get History for User:
+	<select id = "getEventHistoryId" name = "getEventHistoryId">
+		<?php
+			wrapInOptionsTags(listAllUsers($dbPipeline));
+		?>
+	</select>
+	<input type = "hidden" name = "getEventHistoryComplete" id = "getEventHistoryComplete" value = "true">
+	<input type = "submit" name = "submit" id = "submit" value = "View History">
 </form>
 
 </body>
