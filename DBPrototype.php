@@ -136,6 +136,14 @@ if(isset($_POST['insertingUser'])){
     <input type = "submit" name = "submit" id = "submit" value = "Sigh Out">
 </form>
 
+<form name = "searchUser" id = "searchUser" method = "post">
+	Search User:
+	<select id = "searchUserId" name = "searchUserId">
+		<?php
+			wrapInOptionsTags(listAllUsers($dbPipeline));
+		?>
+	</select>
+</form>
 
 </body>
 
