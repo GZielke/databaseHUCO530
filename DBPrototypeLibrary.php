@@ -45,7 +45,8 @@ function insertNewEvent($dbPipeline){
 };
 
 function insertNewCompleteEvent($dbPipeline){
-	$eventCompleteQuery = "INSERT INTO eventCompletion(username, eventName, dateComplete, journal) VALUES('{$_POST['ev_input_user']}', '{$_POST['ev_input_event']}', NOW(), '{$_POST['ev_input_journal']}')";
+	$formattedJournal = addslashes($_POST['ev_input_journal']);
+	$eventCompleteQuery = "INSERT INTO eventCompletion(username, eventName, dateComplete, journal) VALUES('{$_POST['ev_input_user']}', '{$_POST['ev_input_event']}', NOW(), '$formattedJournal')";
 	mysqli_query($dbPipeline, $eventCompleteQuery);
 	echo "Congratulations! You completed an event!";
 };
