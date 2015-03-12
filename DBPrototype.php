@@ -136,7 +136,7 @@ if(isset($_POST['insertingUser'])){
 </form>
 
 <form name = "searchUser" id = "searchUser" method = "post">
-	<h2>Search User:</h2>
+	<h2>Search User and Get Total Points:</h2>
 	<select id = "searchUserId" name = "searchUserId">
 		<?php
 			wrapInOptionsTags(listAllUsers($dbPipeline));
@@ -147,7 +147,7 @@ if(isset($_POST['insertingUser'])){
 </form>
 
 <form name = "getEventHistory" id = "getEventHistory" method = "post">
-	<h2>Get History for User:</h2>
+	<h2>Get Event History for User:</h2>
 	<select id = "getEventHistoryId" name = "getEventHistoryId">
 		<?php
 			wrapInOptionsTags(listAllUsers($dbPipeline));
