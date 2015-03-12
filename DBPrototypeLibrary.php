@@ -89,4 +89,24 @@ function getEventHistory($dbPipeline){
 	};
 };
 
+function searchUser($dbPipeline){
+	echo "searchUser() is being called.<br>";
+	$totalPoints = 0;
+	$firstName = "";
+	$lastName = "";
+	$pointReturnQuery = "SELECT user.firstName, user.lastName, event.points FROM user, eventCompletion, event WHERE user.id = '{$_POST['searchUserId']}' AND user.id = eventCompletion.username AND eventCompletion.eventName = event.id";
+	$pointReturnCloud = mysqli_query($dbPipeline, $pointReturnQuery);
+	while($pointReturnData = mysqli_fetch_array($pointReturnCloud)){
+		$totalPoints = $totalPoints + intval($pointReturnData['points']);
+		$firstName = $pointReturnData['firstName'];
+		$lastName = $pointReturnData['lastName'];
+	};
+	echo $lastName;
+	echo ", ";
+	echo $firstName;
+	echo " | ";
+	echo $totalPoints;
+	echo " total points.";
+};
+
 ?>
