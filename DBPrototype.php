@@ -81,7 +81,7 @@ if(isset($_POST['insertingUser'])){
 	<input type="submit" name="submit" id="submit" value="Submit">
 </form>
 <form name='ev_input' id='ev_input' method='post'>
-	<h2>Add a New Completed Event:</h2>
+	<h2>Record a Completed Event:</h2>
 	Event:
 	<select id='ev_input_event' name='ev_input_event'>
 		<?php
@@ -99,7 +99,7 @@ if(isset($_POST['insertingUser'])){
 	<input type="submit" name="submit" id="submit" value="Submit">
 </form>
 <form name='new_event' id='new_event' method='post'>
-	<h2>Add new event type!</h2>
+	<h2>Create New Event:</h2>
 	Event:
 	<input type='text' name='new_event_eventName' id='new_event_eventName' maxlength='50'><br><br>
 	Event Category:
