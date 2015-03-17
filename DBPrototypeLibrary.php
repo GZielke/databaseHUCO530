@@ -70,7 +70,7 @@ function timeOut($dbPipeline){
 function getEventHistory($dbPipeline){
 	//Needs to look up all of the eventCompletion entries that correspond to the user.
 	echo "getEventHistory() is being called.<br>";
-	$eventHistoryQuery = "SELECT user.firstName, user.lastName, event.eventName, event.eventCategory, event.eventLocation, event.points, eventCompletion.dateComplete FROM user, eventCompletion, event WHERE user.id = '{$_POST['getEventHistoryId']}' AND user.id = eventCompletion.username AND eventCompletion.eventName = event.id";
+	$eventHistoryQuery = "SELECT user.firstName, user.lastName, event.eventName, event.eventCategory, event.eventLocation, event.points, eventCompletion.dateComplete, eventCompletion.journal FROM user, eventCompletion, event WHERE user.id = '{$_POST['getEventHistoryId']}' AND user.id = eventCompletion.username AND eventCompletion.eventName = event.id";
 	$historyCloud = mysqli_query($dbPipeline, $eventHistoryQuery);
 	while($historyData = mysqli_fetch_assoc($historyCloud)){
 		echo $historyData['lastName'];
@@ -86,6 +86,8 @@ function getEventHistory($dbPipeline){
 		echo $historyData['points'];
 		echo " | ";
 		echo $historyData['dateComplete'];
+		echo " | ";
+		echo $historyData['journal'];
 		echo "<br>";
 	};
 };
@@ -109,5 +111,7 @@ function searchUser($dbPipeline){
 	echo $totalPoints;
 	echo " total points.";
 };
+
+
 
 ?>
