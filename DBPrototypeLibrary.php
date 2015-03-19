@@ -113,7 +113,7 @@ function searchUser($dbPipeline){
 };
 
 function getPunchClock($dbPipeline){
-	$query = "SELECT timeIn,timeOut FROM clock WHERE username = '{$_POST['id']}'";
+	$query = "SELECT timeIn,timeOut FROM clock WHERE username = '{$_POST['getPunchClockId']}'";
 	$clockCloud = mysqli_query($dbPipeline,$query);
 	while($clock = mysqli_fetch_assoc($clockCloud)){
 		print_r($clock);
