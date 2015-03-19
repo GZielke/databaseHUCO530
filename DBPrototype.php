@@ -168,6 +168,7 @@ if(isset($_POST['insertingUser'])){
 	</select><br><br>
 	<input type = "hidden" name = "getPunchClockComplete" id="getPunchClockComplete" value = "true">
 	<input type = "submit" name = "submit" id = "submit" value = "View Punch Clock">
+</form>
 
 </body>
 
