@@ -117,6 +117,7 @@ function getPunchClock($dbPipeline){
 	$clockCloud = mysqli_query($dbPipeline,$query);
 	while($clock = mysqli_fetch_assoc($clockCloud)){
 		print_r($clock);
+		echo '<br>';
 	};
 };
 ?>
