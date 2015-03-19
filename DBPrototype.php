@@ -27,6 +27,8 @@ if(isset($_POST['insertingUser'])){
 	searchUser($dbPipeline);
 } elseif(isset($_POST['getEventHistoryComplete'])){
 	getEventHistory($dbPipeline);
+} elseif(isset($_POST['getPunchClockComplete'])){
+	getPunchClock($dbPipeline);
 };
 ?>
 
@@ -155,6 +157,17 @@ if(isset($_POST['insertingUser'])){
 	</select><br><br>
 	<input type = "hidden" name = "getEventHistoryComplete" id = "getEventHistoryComplete" value = "true">
 	<input type = "submit" name = "submit" id = "submit" value = "View History">
+</form>
+
+<form name="getPunchClock" id="getPunchClock" method="post">
+	<h2>Get Punch Clock History for User:</h2>
+	<select id = "getPunchClockId" name = "getPunchClockId">
+		<?php
+			wrapInOptionsTags(listAllUsers($dbPipeline));
+		?>
+	</select><br><br>
+	<input type = "hidden" name = "getPunchClockComplete" id="getPunchClockComplete" value = "true">
+	<input type = "submit" name = "submit" id = "submit" value = "View Punch Clock">
 </form>
 
 </body>
