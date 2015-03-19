@@ -112,6 +112,10 @@ function searchUser($dbPipeline){
 	echo " total points.";
 };
 
-
-
+function getPunchClock($dbPipeline){
+	$query = "SELECT timeIn,timeOut FROM clock WHERE username = '{$_POST['id']}'";
+	$clockCloud = mysqli_query($dbPipeline,$query);
+	while($clock = mysqli_fetch_assoc($clockCloud)){
+		print_r($clock);
+	};
 ?>
