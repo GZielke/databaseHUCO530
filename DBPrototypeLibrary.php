@@ -1,6 +1,7 @@
 <?php
 function insertNewUser($dbPipeline, $year, $month, $day, $firstname, $lastname, $username, $password) {
 	//query INSERT INTO user VALUES(NULL, "firstName", "lastName", "YYYY/MM/DD", "username", "password");
+	$password = crypt($password);
 	$DOB = combineDate($year, $month, $day);
 	$userQuery = "INSERT INTO user VALUES(NULL, '$firstname', '$lastname', '$DOB', '$username', '$password')";
 	mysqli_query($dbPipeline, $userQuery);
@@ -112,7 +113,7 @@ function searchUser($dbPipeline, $searchUserId){
 	echo " total points.";
 };
 
-function getPunchClock($dbPipeline, $getPunchClockId){
+function getPunchClock($dbPipeline,$getPunchClockId){
 	$query = "SELECT timeIn,timeOut FROM clock WHERE username = '$getPunchClockId'";
 	$clockCloud = mysqli_query($dbPipeline,$query);
 	while($clock = mysqli_fetch_assoc($clockCloud)){
