@@ -216,4 +216,8 @@ function findEventId ($dbPipeline, $eventName) {
 	$finalEventId = $eventIdData['id'];
 	return $finalEventId;
 };
+
+function login ($dbPipeline) {
+	//Coming soon, to a webpage near you!
+};
 ?>
