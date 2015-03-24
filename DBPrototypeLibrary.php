@@ -1,17 +1,31 @@
 <?php
-function insertNewUser($dbPipeline) {
-	//query INSERT INTO user VALUES(NULL, "firstName", "lastName", "YYYY/MM/DD", "username", "password");
-	$DOB = combineDate($_POST['user_input_year'],$_POST['user_input_month'],$_POST['user_input_day']);
-	$userQuery = "INSERT INTO user VALUES(NULL, '{$_POST['user_input_firstName']}', '{$_POST['user_input_lastName']}', '$DOB', '{$_POST['user_input_username']}', '{$_POST['user_input_password']}')";
+function insertNewUser($dbPipeline, $year, $month, $day, $firstname, $lastname, $username, $password) {
+	//This function TAKES the database connection, a year of birth, a month of birth, a day of birth, a first name, a last name, a username, and a password
+	//and RETURNS nothing.
+	//This function updates the database with a new user complete with birth date, first and last name, username, and password.
+	//Calling the function will look like this:
+	//insertNewUser($databaseConnection, $yearThey'reBorn, $MonthThey'reBorn, $dayThey'reBorn, $firstName, $lastName, $username, $password);
+	//This doesn't log you in, it creates a new set of log in information.
+	//Below are our notes for interacting with the database:
+		//query INSERT INTO user VALUES(NULL, "firstName", "lastName", "YYYY/MM/DD", "username", "password");
+	$DOB = combineDate($year, $month, $day);
+	$userQuery = "INSERT INTO user VALUES(NULL, '$firstname', '$lastname', '$DOB', '$username', '$password')";
 	mysqli_query($dbPipeline, $userQuery);
 	echo "Inserted new user into the database!";
 };
 
 function combineDate($year, $month, $day){
+	//This function just takes the information from the insertNewUser function and puts it in a format the database likes.
 	return "$year"."-"."$month"."-"."$day";
 };
 
 function listAllUsers($dbPipeline) {
+	//This function TAKES the database connection and RETURNS a full list of all the usernames in the database.
+	//This function doesn't update the database with new information.
+	//Calling the function will look like this:
+	//$usernameArray = listAllUsers();
+	//The array that is returned, $resultsArray, will have:
+	//$resultsArray['0'] is the first username. Each username is connected to their id value.
 	$userQuery = "SELECT username, id FROM user";
 	$userCloud = mysqli_query($dbPipeline, $userQuery);
 	$resultArray = array();
@@ -22,6 +36,12 @@ function listAllUsers($dbPipeline) {
 };
 
 function listAllEvents($dbPipeline) {
+	//This function TAKES the database connection and RETURNS a full list of all the events in the database.
+	//This function doesn't update the database with new information.
+	//Calling the function will look like this:
+	//$EventNameArray = listAllEvents($databaseConnection);
+	//The array that is returned, $resultsArray, will have:
+	//$resultsArray['0'] is the first event name. Each event name is connected to their id value.
 	$eventCloud = mysqli_query($dbPipeline, "SELECT eventName, id FROM event");
 	$resultArray = array();
 	while($eventData = mysqli_fetch_assoc($eventCloud)){
@@ -31,73 +51,105 @@ function listAllEvents($dbPipeline) {
 };
 
 function wrapInOptionsTags($optionArray) {
+	//This function just wraps things in option tags. It's only really useful in HTML.
+	//If you combine it with the listAllEvents() or listAllUsers() functions, if creates a selectable list within a form.
+	//The function looks like this: wrapInOptionsTags(listAllUsers());
 	foreach($optionArray as $key => $value){
 		print "<option value='$key'>$value</option>";
 	};
 };
 
-function insertNewEvent($dbPipeline){
-	//query INSERT INTO event VALUES(NULL, "eventName", "eventCategory", "eventLocation", "points");
-	$realPointInteger = intval($_POST['new_event_points']);
-	$eventQuery = "INSERT INTO event VALUES(NULL, '{$_POST['new_event_eventName']}', '{$_POST['new_event_eventCategory']}', '{$_POST['new_event_eventLocation']}', '$realPointInteger')";
+function insertNewEvent($dbPipeline, $points, $eventName, $eventCategory, $eventLocation){
+	//This function TAKES the database connection, the point value for a new event, the name of a new event, the category for a new event,
+	//and the location for a new event, and RETURNS nothing.
+	//This function updates the database with a new event. You can determine the name of the event, its category, location, and point value.
+	//Calling the function will look like this:
+	//insertNewEvent($databaseConnection, $pointValueOfEvent, $nameOfEvent, $categoryOfEvent, $locationOfEvent);
+	//Below are our notes for interacting with the database:
+		//query INSERT INTO event VALUES(NULL, "eventName", "eventCategory", "eventLocation", "points");
+	$realPointInteger = intval($points);
+	$eventQuery = "INSERT INTO event VALUES(NULL, '$eventName', '$eventCategory', '$eventLocation', '$realPointInteger')";
 	mysqli_query($dbPipeline, $eventQuery);
 	echo "New event created!";
 };
 
-function insertNewCompleteEvent($dbPipeline){
-	$formattedJournal = addslashes($_POST['ev_input_journal']);
-	$eventCompleteQuery = "INSERT INTO eventCompletion(username, eventName, dateComplete, journal) VALUES('{$_POST['ev_input_user']}', '{$_POST['ev_input_event']}', NOW(), '$formattedJournal')";
+function insertNewCompleteEvent($dbPipeline, $journal, $user, $event){
+	//This function TAKES the database connection, a journal entry, a user id, and an event id and RETURNS nothing.
+	//This function updates the database with a new completed event by a user. You can access that information with other functions.
+	//Calling the function will look like this:
+	// insertNewCompleteEvent($databaseConnection, $journalEntry, $IdOfPersonWhoCompletedAnEvent, $IdOfEventThePersonCompleted);
+	$formattedJournal = addslashes($journal);
+	$eventCompleteQuery = "INSERT INTO eventCompletion(username, eventName, dateComplete, journal) VALUES('$user', '$event', NOW(), '$formattedJournal')";
 	mysqli_query($dbPipeline, $eventCompleteQuery);
 	echo "Congratulations! You completed an event!";
 };
 
-function timeIn($dbPipeline){
-    //When doing this, both of the timestamps need to be NULL.
-    //i.e. INSERT INTO clock VALUES(NULL, *user id*, NULL, NULL)
-    $timeInQuery = "INSERT INTO clock VALUES(NULL,'{$_POST['timeInId']}',NULL,NULL)";
+function timeIn($dbPipeline, $timeInId){
+	//This function TAKES the database connection and a user id and RETURNS nothing.
+	//This function updates the database with the time that the person whose id you enter checks in.
+	//Calling the function will look like this:
+	//timeIn($databaseConnection, $IdOfPersonYouWantToCheckIn);
+	//Below are our notes for interacting with the database:
+		//When doing this, both of the timestamps need to be NULL.
+		//i.e. INSERT INTO clock VALUES(NULL, *user id*, NULL, NULL)
+    $timeInQuery = "INSERT INTO clock VALUES(NULL,'$timeInId',NULL,NULL)";
     mysqli_query($dbPipeline,$timeInQuery);
 	echo "You have checked in!";
 };
 
-function timeOut($dbPipeline){
-    //When timing out, you use UPDATE clock SET timeOut = NOW() WHERE id = *person logging out*
-    //We can find the "current" section by adding "WHERE timeIn = timeOut".
-    $timeOutQuery = "UPDATE clock SET timeOut = NOW() WHERE username = '{$_POST['timeOutId']}' ORDER BY timeIn DESC LIMIT 1";
+function timeOut($dbPipeline, $timeOutId){
+	//This function TAKES the database connection and a user id and RETURNS nothing.
+	//This function updates the database with the time that the person whose id you enter checks out.
+	//Calling the function will look like this:
+	//timeOut($databaseConnection, $IdOfPersonYouWantToCheckOut);
+	//Below are our notes for interacting with the database:
+		//When timing out, you use UPDATE clock SET timeOut = NOW() WHERE id = *person logging out*
+		//We can find the "current" section by adding "WHERE timeIn = timeOut".
+    $timeOutQuery = "UPDATE clock SET timeOut = NOW() WHERE username = '$timeOutId' ORDER BY timeIn DESC LIMIT 1";
     mysqli_query($dbPipeline,$timeOutQuery);
 	echo "You have checked out!";
 };
 
-function getEventHistory($dbPipeline){
-	//Needs to look up all of the eventCompletion entries that correspond to the user.
+function getEventHistory($dbPipeline, $getEventHistoryId){
+	//This function TAKES the database connection and a user id and RETURNS	all of the events that a user has completed as arrays within an array.
+	//This function doesn't update the database with new information.
+	//Calling the function would look like: 
+	//$myArray = getEventHistory($databaseConnection, $idOfPersonYou'reLookingFor);
+	//The array that is returned, $historyFinalArray, will have $historyFinalArray['firstName'] is the user's first name, 
+	//$historyFinalArray['lastName'] is the user's last name, $historyFinalArray['eventName'] is the name of the event completed, 
+	//$historyFinalArray['eventCategory'] is the name of the category of that event,
+	//$historyFinalArray['eventLocation'] is where the event was completed (Library, pool, etc.) $historyFinalArray['points'] is how many points the event was worth,
+	//$historyFinalArray['dateComplete'] is the date that the event was completed, and $historyFinalArray['journal'] is the journal entry corresponding to that event.
+	//Each complete event is an array within the array. So, $historyFinalArray[0][eventName] gets the name of the first event, historyFinalArray[1][eventName] gets the name of the second event, etc.
+	//This gets EVERYTHING that a user has done within the database. If you just want the user's point total, using searchUser() would be faster.
 	echo "getEventHistory() is being called.<br>";
-	$eventHistoryQuery = "SELECT user.firstName, user.lastName, event.eventName, event.eventCategory, event.eventLocation, event.points, eventCompletion.dateComplete, eventCompletion.journal FROM user, eventCompletion, event WHERE user.id = '{$_POST['getEventHistoryId']}' AND user.id = eventCompletion.username AND eventCompletion.eventName = event.id";
+	$historyFinalArray = array();
+	$eventHistoryQuery = "SELECT user.firstName, user.lastName, event.eventName, event.eventCategory, event.eventLocation, event.points, eventCompletion.dateComplete, eventCompletion.journal FROM user, eventCompletion, event WHERE user.id = '$getEventHistoryId' AND user.id = eventCompletion.username AND eventCompletion.eventName = event.id";
 	$historyCloud = mysqli_query($dbPipeline, $eventHistoryQuery);
 	while($historyData = mysqli_fetch_assoc($historyCloud)){
-		echo $historyData['lastName'];
-		echo ", ";
-		echo $historyData['firstName'];
-		echo " | ";
-		echo $historyData['eventName'];
-		echo " | ";
-		echo $historyData['eventCategory'];
-		echo " | ";
-		echo $historyData['eventLocation'];
-		echo " | ";
-		echo $historyData['points'];
-		echo " | ";
-		echo $historyData['dateComplete'];
-		echo " | ";
-		echo $historyData['journal'];
+		$historyFinalArray[] = $historyData;
+		print_r($historyData);
 		echo "<br>";
 	};
+	return $historyFinalArray;
 };
 
-function searchUser($dbPipeline){
+function searchUser($dbPipeline, $searchUserId){
+	//This function TAKES the database connection and a user id and RETURNS	that user's first name, last name, and the total points they have right now.
+	//This function doesn't update the database with new information.
+	//Calling the function will look like this: 
+	//$myArray = searchUser($databaseConnection, $idOfPersonYou'reLookingFor);
+	//The array that is returned, $finalSearchUserArray, will have:
+	//$finalSearchUserArray['firstName'] for the first name, $finalSearchUserArray['lastName'] for the last name,
+	//and $finalSearchUserArray['totalPoints'] for the total points.
+	//This function only returns one array, not an array of arrays. So accessing $myArray['firstName'] will return someone's first name.
+	//This function is the easiest way to get total points.
 	echo "searchUser() is being called.<br>";
+	$finalSearchUserArray = array();
 	$totalPoints = 0;
 	$firstName = "";
 	$lastName = "";
-	$pointReturnQuery = "SELECT user.firstName, user.lastName, event.points FROM user, eventCompletion, event WHERE user.id = '{$_POST['searchUserId']}' AND user.id = eventCompletion.username AND eventCompletion.eventName = event.id";
+	$pointReturnQuery = "SELECT user.firstName, user.lastName, event.points FROM user, eventCompletion, event WHERE user.id = '$searchUserId' AND user.id = eventCompletion.username AND eventCompletion.eventName = event.id";
 	$pointReturnCloud = mysqli_query($dbPipeline, $pointReturnQuery);
 	while($pointReturnData = mysqli_fetch_array($pointReturnCloud)){
 		$totalPoints = $totalPoints + intval($pointReturnData['points']);
@@ -110,14 +162,58 @@ function searchUser($dbPipeline){
 	echo " | ";
 	echo $totalPoints;
 	echo " total points.";
+	$finalSearchUserArray['firstName'] = $firstName;
+	$finalSearchUserArray['lastName'] = $lastName;
+	$finalSearchUserArray['totalPoints'] = $totalPoints;
+	return $finalSearchUserArray;
 };
 
-function getPunchClock($dbPipeline){
-	$query = "SELECT timeIn,timeOut FROM clock WHERE username = '{$_POST['getPunchClockId']}'";
+function getPunchClock($dbPipeline, $getPunchClockId){
+	//This function TAKES the database connection and a user id and RETURNS the list of punch ins and punch outs of that user in an array of arrays.
+	//This function doesn't update the database with new information.
+	//Calling the function will look like:
+	//$punchClockArray = getPunchClock($databaseConnection, $idOfPersonYouWantThePunchClockInformationFor);
+	//The array that is returned, $clockArray, will have:
+	//$clockArray[timeIn] is "what time they checked in," $clockArray[timeOut] is "what time they checked out."
+	//Each of these arrays are contained within a larger array. So $clockArray[0][timeIn] is the first "timeIn", $clockArray[1][timeIn] is the second, and so on.
+	$clockArray = array();
+	$query = "SELECT timeIn,timeOut FROM clock WHERE username = '$getPunchClockId'";
 	$clockCloud = mysqli_query($dbPipeline,$query);
 	while($clock = mysqli_fetch_assoc($clockCloud)){
 		print_r($clock);
 		echo '<br>';
+		$clockArray[] = $clock;
 	};
+	return $clockArray;
+};
+
+function findUserId ($dbPipeline, $username) {
+	//This function TAKES the database connection and a username and RETURNS the id of that user.
+	//This function doesn't update the database with new information.
+	//Calling the function will look like this:
+	//$userIdIWantToFind = findUserId($databaseConnection, $usernameOfPersonIWantTheIdFor);
+	//This function returns the user id as a string.
+	//You can call this function if you have a username but need the id for another function.
+	$finalUserId = "Error: No user of that name found.";
+	$query = "SELECT id FROM user WHERE username = '$username'";
+	$userCloud = mysqli_query($dbPipeline, $query);
+	$userIdData = mysqli_fetch_assoc($userCloud);
+	$finalUserId = $userIdData['id'];
+	return $finalUserId;
+};
+
+function findEventId ($dbPipeline, $eventName) {
+	//This function TAKES the database connection and an event name and RETURNS the id of that event.
+	//This function doesn't update the database with new information.
+	//Calling the function will look like this:
+	//$eventIdIWantToFind = findEventId($databaseConnection, $eventNameIWantTheIdFor);
+	//This function returns the user id as a string.
+	//You can call this function if you have an event name but need the id for another function.
+	$finalUserId = "Error: No user of that name found.";
+	$query = "SELECT id FROM event WHERE eventName = '$eventName'";
+	$eventCloud = mysqli_query($dbPipeline, $query);
+	$eventIdData = mysqli_fetch_assoc($eventCloud);
+	$finalEventId = $eventIdData['id'];
+	return $finalEventId;
 };
 ?>
