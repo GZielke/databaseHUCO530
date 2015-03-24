@@ -70,30 +70,20 @@ function timeOut($dbPipeline, $timeOutId){
 function getEventHistory($dbPipeline, $getEventHistoryId){
 	//Needs to look up all of the eventCompletion entries that correspond to the user.
 	echo "getEventHistory() is being called.<br>";
+	$historyFinalArray = array();
 	$eventHistoryQuery = "SELECT user.firstName, user.lastName, event.eventName, event.eventCategory, event.eventLocation, event.points, eventCompletion.dateComplete, eventCompletion.journal FROM user, eventCompletion, event WHERE user.id = '$getEventHistoryId' AND user.id = eventCompletion.username AND eventCompletion.eventName = event.id";
 	$historyCloud = mysqli_query($dbPipeline, $eventHistoryQuery);
 	while($historyData = mysqli_fetch_assoc($historyCloud)){
-		echo $historyData['lastName'];
-		echo ", ";
-		echo $historyData['firstName'];
-		echo " | ";
-		echo $historyData['eventName'];
-		echo " | ";
-		echo $historyData['eventCategory'];
-		echo " | ";
-		echo $historyData['eventLocation'];
-		echo " | ";
-		echo $historyData['points'];
-		echo " | ";
-		echo $historyData['dateComplete'];
-		echo " | ";
-		echo $historyData['journal'];
+		$historyFinalArray[] = $historyData;
+		print_r($historyData);
 		echo "<br>";
 	};
+	return $historyFinalArray;
 };
 
 function searchUser($dbPipeline, $searchUserId){
 	echo "searchUser() is being called.<br>";
+	$finalSearchUserArray = array();
 	$totalPoints = 0;
 	$firstName = "";
 	$lastName = "";
@@ -110,14 +100,21 @@ function searchUser($dbPipeline, $searchUserId){
 	echo " | ";
 	echo $totalPoints;
 	echo " total points.";
+	$finalSearchUserArray['firstName'] = $firstName;
+	$finalSearchUserArray['lastName'] = $lastName;
+	$finalSearchUserArray['totalPoints'] = $totalPoints;
+	return $finalSearchUserArray;
 };
 
 function getPunchClock($dbPipeline, $getPunchClockId){
+	$clockArray = array();
 	$query = "SELECT timeIn,timeOut FROM clock WHERE username = '$getPunchClockId'";
 	$clockCloud = mysqli_query($dbPipeline,$query);
 	while($clock = mysqli_fetch_assoc($clockCloud)){
 		print_r($clock);
 		echo '<br>';
+		$clockArray[] = $clock;
 	};
+	return $clockArray;
 };
 ?>
