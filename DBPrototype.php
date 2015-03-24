@@ -14,21 +14,21 @@ include_once 'DBPrototypeLibrary.php';
 <body>
 <?php
 if(isset($_POST['insertingUser'])){
-	insertNewUser($dbPipeline);
+	insertNewUser($dbPipeline, $_POST['user_input_day'], $_POST['user_input_month'], $_POST['user_input_year'], $_POST['user_input_firstName'], $_POST['user_input_lastName'], $_POST['user_input_username'], $_POST['user_input_password']);
 } elseif(isset($_POST['insertingEventComplete'])){
-	insertNewCompleteEvent($dbPipeline);
+	insertNewCompleteEvent($dbPipeline, $_POST['ev_input_journal'], $_POST['ev_input_user'], $_POST['ev_input_event']);
 } elseif(isset($_POST['insertingNewEvent'])){
-	insertNewEvent($dbPipeline);
+	insertNewEvent($dbPipeline, $_POST['new_event_points'], $_POST['new_event_eventName'], $_POST['new_event_eventCategory'], $_POST['new_event_eventLocation']);
 } elseif(isset($_POST['timeInComplete'])){
-	 timeIn($dbPipeline);
+	 timeIn($dbPipeline, $_POST['timeInId']);
 } elseif(isset($_POST['timeOutComplete'])){
-	 timeOut($dbPipeline);
+	 timeOut($dbPipeline, $_POST['timeOutId']);
 } elseif(isset($_POST['searchUserComplete'])){
-	searchUser($dbPipeline);
+	searchUser($dbPipeline, $_POST['searchUserId']);
 } elseif(isset($_POST['getEventHistoryComplete'])){
-	getEventHistory($dbPipeline);
+	getEventHistory($dbPipeline, $_POST['getEventHistoryId']);
 } elseif(isset($_POST['getPunchClockComplete'])){
-	getPunchClock($dbPipeline);
+	getPunchClock($dbPipeline, $_POST['getPunchClockId']);
 };
 ?>
 
