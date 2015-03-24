@@ -12,26 +12,6 @@ include_once 'DBPrototypeLibrary.php';
 </head>
 
 <body>
-<?php
-if(isset($_POST['insertingUser'])){
-	insertNewUser($dbPipeline, $_POST['user_input_day'], $_POST['user_input_month'], $_POST['user_input_year'], $_POST['user_input_firstName'], $_POST['user_input_lastName'], $_POST['user_input_username'], $_POST['user_input_password']);
-} elseif(isset($_POST['insertingEventComplete'])){
-	insertNewCompleteEvent($dbPipeline, $_POST['ev_input_journal'], $_POST['ev_input_user'], $_POST['ev_input_event']);
-} elseif(isset($_POST['insertingNewEvent'])){
-	insertNewEvent($dbPipeline, $_POST['new_event_points'], $_POST['new_event_eventName'], $_POST['new_event_eventCategory'], $_POST['new_event_eventLocation']);
-} elseif(isset($_POST['timeInComplete'])){
-	 timeIn($dbPipeline, $_POST['timeInId']);
-} elseif(isset($_POST['timeOutComplete'])){
-	 timeOut($dbPipeline, $_POST['timeOutId']);
-} elseif(isset($_POST['searchUserComplete'])){
-	searchUser($dbPipeline, $_POST['searchUserId']);
-} elseif(isset($_POST['getEventHistoryComplete'])){
-	getEventHistory($dbPipeline, $_POST['getEventHistoryId']);
-} elseif(isset($_POST['getPunchClockComplete'])){
-	getPunchClock($dbPipeline, $_POST['getPunchClockId']);
-};
-?>
-
 <form name='user_input' id='user_input' method='post'>
 	<h2>Register New User</h2>
 	First Name:
@@ -79,8 +59,7 @@ if(isset($_POST['insertingUser'])){
 	<input type="text" name="user_input_username" id="user_input_username" maxlength="30"><br><br>
 	Password:
 	<input type="text" name="user_input_password" id="user_input_password" maxlength="30"><br><br>
-	<input type="hidden" name="insertingUser" id="insertingUser" value="true">
-	<input type="submit" name="submit" id="submit" value="Submit">
+	<input type="submit" formmethod="post" name="submit" id="submit" value="Submit">
 </form>
 <form name='ev_input' id='ev_input' method='post'>
 	<h2>Record a Completed Event:</h2>
@@ -97,8 +76,7 @@ if(isset($_POST['insertingUser'])){
 		?>
 	</select><br><br>
 	<textarea name='ev_input_journal' id='ev_input_journal' cols='80' rows='6' maxlength='999'></textarea>
-	<input type="hidden" name="insertingEventComplete" id="insertingEventComplete" value="true"><br><br>
-	<input type="submit" name="submit" id="submit" value="Submit">
+	<input type="submit" formmethod="post" name="submit" id="submit" value="Submit">
 </form>
 <form name='new_event' id='new_event' method='post'>
 	<h2>Create New Event:</h2>
@@ -110,8 +88,7 @@ if(isset($_POST['insertingUser'])){
 	<input type='text' name='new_event_eventLocation' id='new_event_eventLocation' maxlength='30'><br><br>
 	Points:
 	<input type='text' name='new_event_points' id='new_event_points'>
-	<input type='hidden' name='insertingNewEvent' id='insertingNewEvent' value="true"><br><br>
-	<input type="submit" name="submit" id="submit" value="Submit">
+	<input type="submit" formmethod="post" name="submit" id="submit" value="Submit">
 </form>
 
 <form name = "timeIn" id = "timeIn" method = "post">
@@ -122,8 +99,7 @@ if(isset($_POST['insertingUser'])){
    	 wrapInOptionsTags(listAllUsers($dbPipeline));
     ?>
     </select><br><br>
-    <input type = "hidden" name = "timeInComplete" id = "timeInComplete" value = "true">
-    <input type = "submit" name = "submit" id = "submit" value = "Sigh In">
+    <input type = "submit" formmethod="post" name = "submit" id = "submit" value = "Sigh In">
 </form>
 <form name = "timeOut" id = "timeOut" method = "post">
     <h2>Time Out:</h2>
@@ -133,8 +109,7 @@ if(isset($_POST['insertingUser'])){
    	 wrapInOptionsTags(listAllUsers($dbPipeline));
     ?>
     </select><br><br>
-    <input type = "hidden" name = "timeOutComplete" id = "timeOutComplete" value = "true">
-    <input type = "submit" name = "submit" id = "submit" value = "Sigh Out">
+    <input type = "submit" formmethod="post" name = "submit" id = "submit" value = "Sigh Out">
 </form>
 
 <form name = "searchUser" id = "searchUser" method = "post">
@@ -144,8 +119,7 @@ if(isset($_POST['insertingUser'])){
 			wrapInOptionsTags(listAllUsers($dbPipeline));
 		?>
 	</select><br><br>
-	<input type = "hidden" name = "searchUserComplete" id = "searchUserComplete" value = "true">
-	<input type='submit' name='submit' id='submit' value='Search'>
+	<input type='submit' formmethod="post" name='submit' id='submit' value='Search'>
 </form>
 
 <form name = "getEventHistory" id = "getEventHistory" method = "post">
@@ -155,8 +129,7 @@ if(isset($_POST['insertingUser'])){
 			wrapInOptionsTags(listAllUsers($dbPipeline));
 		?>
 	</select><br><br>
-	<input type = "hidden" name = "getEventHistoryComplete" id = "getEventHistoryComplete" value = "true">
-	<input type = "submit" name = "submit" id = "submit" value = "View History">
+	<input type = "submit" formmethod="post" name = "submit" id = "submit" value = "View History">
 </form>
 
 <form name="getPunchClock" id="getPunchClock" method="post">
@@ -166,10 +139,8 @@ if(isset($_POST['insertingUser'])){
 			wrapInOptionsTags(listAllUsers($dbPipeline));
 		?>
 	</select><br><br>
-	<input type = "hidden" name = "getPunchClockComplete" id="getPunchClockComplete" value = "true">
-	<input type = "submit" name = "submit" id = "submit" value = "View Punch Clock">
+	<input type = "submit" formmethod="post" name = "submit" id = "submit" value = "View Punch Clock">
 </form>
 
 </body>
-
 </html>
