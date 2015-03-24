@@ -1,7 +1,6 @@
 <?php
 function insertNewUser($dbPipeline, $year, $month, $day, $firstname, $lastname, $username, $password) {
 	//query INSERT INTO user VALUES(NULL, "firstName", "lastName", "YYYY/MM/DD", "username", "password");
-	$password = crypt($password);
 	$DOB = combineDate($year, $month, $day);
 	$userQuery = "INSERT INTO user VALUES(NULL, '$firstname', '$lastname', '$DOB', '$username', '$password')";
 	mysqli_query($dbPipeline, $userQuery);
