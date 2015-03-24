@@ -8,6 +8,7 @@ function insertNewUser($dbPipeline, $year, $month, $day, $firstname, $lastname, 
 	//This doesn't log you in, it creates a new set of log in information.
 	//Below are our notes for interacting with the database:
 		//query INSERT INTO user VALUES(NULL, "firstName", "lastName", "YYYY/MM/DD", "username", "password");
+	$password = crypt($password);
 	$DOB = combineDate($year, $month, $day);
 	$userQuery = "INSERT INTO user VALUES(NULL, '$firstname', '$lastname', '$DOB', '$username', '$password')";
 	mysqli_query($dbPipeline, $userQuery);
