@@ -10,7 +10,7 @@ include_once 'DBPrototypeLibrary.php';
 <body>
 <?php
 if(isset($_POST['registerUserSubmit'])){
-	insertNewUser($dbPipeline, $_POST['user_input_year'], $_POST['user_input_month'], $_POST['user_input_day'], $_POST['user_input_firstName'], $_POST['user_input_lastName'], $_POST['user_input_username'], $_POST['user_input_password']);
+	insertNewUser($dbPipeline, $_POST['user_input_day'], $_POST['user_input_month'], $_POST['user_input_year'], $_POST['user_input_firstName'], $_POST['user_input_lastName'], $_POST['user_input_username'], $_POST['user_input_password']);
 } elseif(isset($_POST['recordEventSubmit'])){
 	insertNewCompleteEvent($dbPipeline, $_POST['ev_input_journal'], $_POST['ev_input_user'], $_POST['ev_input_event']);
 } elseif(isset($_POST['newEventSubmit'])){
