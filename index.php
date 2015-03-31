@@ -20,7 +20,7 @@ if(isset($_POST['forgotPasswordSubmit'])){
 
 <form name='login' id='login' method='post'>
 Username: <input type='text' name='username' id='username' value='' maxlength='30'><br><br>
-Password: <input type='text' name='password' id='password' value='' maxlength='30'><br><br>
+Password: <input type='password' name='password' id='password' value='' maxlength='30'><br><br>
 <input type='submit' name='loginSubmit' id='loginSubmit' value='Log In'>
 </form>
 
