@@ -6,13 +6,21 @@ function insertNewUser($dbPipeline, $year, $month, $day, $firstname, $lastname, 
 	//Calling the function will look like this:
 	//insertNewUser($databaseConnection, $yearThey'reBorn, $MonthThey'reBorn, $dayThey'reBorn, $firstName, $lastName, $username, $password);
 	//This doesn't log you in, it creates a new set of log in information.
+	//This also checks to see if there is already someone with the selected username before adding that username to the database. It doesn't allow for
+	//multiple instances of the same username, but does allow multiples of other features.
 	//Below are our notes for interacting with the database:
-		//query INSERT INTO user VALUES(NULL, "firstName", "lastName", "YYYY/MM/DD", "username", "password");
+		//query INSERT INTO user VALUES(NULL, "firstName", "lastName", "dateOfBirth(in format YYYY/MM/DD)", "username", "password");
 	$password = crypt($password);
 	$DOB = combineDate($year, $month, $day);
-	$userQuery = "INSERT INTO user VALUES(NULL, '$firstname', '$lastname', '$DOB', '$username', '$password')";
-	mysqli_query($dbPipeline, $userQuery);
-	echo "Inserted new user into the database!";
+	$userCheckQuery = "SELECT * FROM user WHERE username = '$username'";
+	$usernameCheck = mysqli_num_rows(mysqli_query($dbPipeline, $userCheckQuery));
+	if($usernameCheck == 0){
+		$userInsertQuery = "INSERT INTO user VALUES(NULL, '$firstname', '$lastname', '$DOB', '$username', '$password')";
+		mysqli_query($dbPipeline, $userInsertQuery);
+		echo "Inserted new user into the database!";
+	} else {
+		echo "Username is already in use. Please choose a new username.";
+	};
 };
 
 function combineDate($year, $month, $day){
@@ -210,11 +218,50 @@ function findEventId ($dbPipeline, $eventName) {
 	//$eventIdIWantToFind = findEventId($databaseConnection, $eventNameIWantTheIdFor);
 	//This function returns the user id as a string.
 	//You can call this function if you have an event name but need the id for another function.
-	$finalUserId = "Error: No user of that name found.";
+	$finalEventId = "Error: No event of that name found.";
 	$query = "SELECT id FROM event WHERE eventName = '$eventName'";
 	$eventCloud = mysqli_query($dbPipeline, $query);
 	$eventIdData = mysqli_fetch_assoc($eventCloud);
 	$finalEventId = $eventIdData['id'];
 	return $finalEventId;
 };
+
+function login ($dbPipeline, $username, $password){
+	//This function TAKES the database connection, a username, and a password and RETURNS whether or not those are valid credentials to allow you to log in.
+	//This function doesn't update the database with new information.
+	//Calling this function will look like this:
+	//if(login($databaseConnection, $myUsername, $myPassword)){
+	//	Do the thing you want when the person logs in.
+	//};
+	//This function returns a true or false value. Basically, it answers the question, "Does someone with these credentials exists on the database?"
+	$query = "SELECT * FROM user WHERE password = '$password' AND username = '$username'";
+	$passwordCheck = mysqli_num_rows(mysqli_query($dbPipeline, $query));
+	if($passwordCheck > 0){
+		return true;
+	}else{
+		return false;
+	};
+};
+
+function HTMLlogin ($correctPassword, $username){
+	//This is a login that we used for our test page. It doesn't do anything in javascript, and just navigates between HTML pages for us.
+	//Our notes:
+		//This needs to shoop you over to the right page and put your username into a variable. It also needs to check if you entered the correct password.
+	if($correctPassword){
+		//This will shoop you over to the right page.
+	}else{
+		echo "Your login credentials are incorrect.";
+	};
+};
+
+function resetPassword ($dbPipeline, $username, $day, $month, $year, $newPassword){
+	//This function TAKES the database connection, username of the user that forgot their password, day, month, and year of that person's date of birth,
+	//and the new password they want to input and RETURNS nothing.
+	//This function updates the database with a new password for one particular user.
+	$DOB = combineDate($year, $month, $day);
+	$query = "UPDATE user SET password = '$newPassword' WHERE username = '$username' AND dateOfBirth = '$DOB'";
+	mysqli_query($dbPipeline, $query);
+};
+
+
 ?>
