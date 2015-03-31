@@ -8,10 +8,20 @@ if(!$dbPipeline){
 };
 
 include_once 'DBPrototypeLibrary.php';
+session_start();
 ?>
 </head>
 
 <body>
+<?php
+if($_SESSION['loggedin'] == true){
+	echo "You are logged in as " . $_SESSION['firstName'] . ".\n";
+}
+else{
+	header("Location: /kwau/iHuman/index.php");
+	exit();
+}
+?>
 <?php
 if(isset($_POST['registerUserSubmit'])){
 	insertNewUser($dbPipeline, $_POST['user_input_year'], $_POST['user_input_month'], $_POST['user_input_day'], $_POST['user_input_firstName'], $_POST['user_input_lastName'], $_POST['user_input_username'], $_POST['user_input_password']);
@@ -29,8 +39,14 @@ if(isset($_POST['registerUserSubmit'])){
 	getEventHistory($dbPipeline, $_POST['getEventHistoryId']);
 } elseif(isset($_POST['punchClockSubmit'])){
 	getPunchClock($dbPipeline, $_POST['getPunchClockId']);
-};
+} elseif(isset($_POST['logout'])){
+	logout($dbPipeline);
+}
 ?>
+
+<form name='logoutForm' id='logoutForm' method='post'>
+<input type='submit' name='logout' id='logout' value='Log Out'>
+</form>
 
 <form name='user_input' id='user_input' method='post'>
 	<h2>Register New User</h2>

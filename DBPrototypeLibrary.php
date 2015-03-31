@@ -10,7 +10,6 @@ function insertNewUser($dbPipeline, $year, $month, $day, $firstname, $lastname, 
 	//multiple instances of the same username, but does allow multiples of other features.
 	//Below are our notes for interacting with the database:
 		//query INSERT INTO user VALUES(NULL, "firstName", "lastName", "dateOfBirth(in format YYYY/MM/DD)", "username", "password");
-	$password = crypt($password);
 	$DOB = combineDate($year, $month, $day);
 	$userCheckQuery = "SELECT * FROM user WHERE username = '$username'";
 	$usernameCheck = mysqli_num_rows(mysqli_query($dbPipeline, $userCheckQuery));
@@ -240,6 +239,7 @@ function login ($dbPipeline, $username, $password){
 	if($passwordCheck == 1){
 		session_start();
 		while($cloud = mysqli_fetch_assoc($userCloud)){
+			$_SESSION['loggedin'] = true;
 			$_SESSION['firstName'] = $cloud['firstName'];
 			echo "Welcome, " . $_SESSION['firstName'] . "! <a href=/kwau/iHuman/DBPrototype.php>Continue</a>";
 		}
@@ -251,6 +251,8 @@ function login ($dbPipeline, $username, $password){
 
 function logout($dbPipeline){
 	session_destroy();
+	header("Location: /kwau/iHuman/index.php");
+	exit();
 }
 
 function resetPassword ($dbPipeline, $username, $day, $month, $year, $newPassword){
