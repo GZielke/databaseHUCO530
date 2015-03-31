@@ -16,7 +16,6 @@ if(isset($_POST['forgotPasswordSubmit'])){
 }
 ?>
 
-
 <h2>Log In</h2>
 
 <form name='login' id='login' method='post'>
@@ -25,12 +24,23 @@ Password: <input type='text' name='password' id='password' value='' maxlength='3
 <input type='submit' name='loginSubmit' id='loginSubmit' value='Log In'>
 </form>
 
-<h3>Forgot Password</h3>
+<h2>Forgot Password</h2>
 
 <form name='forgotPassword' id='forgotPassword' method='post'>
 Username: <input type='text' name='r_username' id='r_username' value='' maxlength='30'><br><br>
 Date of Birth:
-Month:
+	<select id='user_input_day' name='user_input_day'>
+		<?php
+			print "<option value='01' selected>1</option>";
+			for($i=2; $i<32; $i++){
+				if($i<10){
+					print "<option value='0$i'>$i</option>";
+				}else{
+					print "<option value='$i'>$i</option>";
+				};
+			};
+		?>
+	</select>
 	<select id='user_input_month' name='user_input_month'>
 		<option value='01' selected>January</option>
 		<option value='02' >February</option>
@@ -45,20 +55,6 @@ Month:
 		<option value='11' >November</option>
 		<option value='12' >December</option>
 	</select>
-	Day:
-	<select id='user_input_day' name='user_input_day'>
-		<?php
-			print "<option value='01' selected>1</option>";
-			for($i=2; $i<32; $i++){
-				if($i<10){
-					print "<option value='0$i'>$i</option>";
-				}else{
-					print "<option value='$i'>$i</option>";
-				};
-			};
-		?>
-	</select>
-	Year:
 	<select id='user_input_year' name='user_input_year'>
 		<?php
 			for($i=2015; $i>1900; $i--){
