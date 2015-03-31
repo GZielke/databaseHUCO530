@@ -235,24 +235,23 @@ function login ($dbPipeline, $username, $password){
 	//};
 	//This function returns a true or false value. Basically, it answers the question, "Does someone with these credentials exists on the database?"
 	$query = "SELECT * FROM user WHERE password = '$password' AND username = '$username'";
-	$passwordCheck = mysqli_num_rows(mysqli_query($dbPipeline, $query));
-	if($passwordCheck > 0){
-		return true;
-	}else{
-		return false;
-	};
-};
-
-function HTMLlogin ($correctPassword, $username){
-	//This is a login that we used for our test page. It doesn't do anything in javascript, and just navigates between HTML pages for us.
-	//Our notes:
-		//This needs to shoop you over to the right page and put your username into a variable. It also needs to check if you entered the correct password.
-	if($correctPassword){
-		//This will shoop you over to the right page.
-	}else{
+	$userCloud = mysqli_query($dbPipeline,$query);
+	$passwordCheck = mysqli_num_rows($userCloud);
+	if($passwordCheck == 1){
+		session_start();
+		while($cloud = mysqli_fetch_assoc($userCloud)){
+			$_SESSION['firstName'] = $cloud['firstName'];
+			echo "Welcome, " . $_SESSION['firstName'] . "! <a href=/kwau/iHuman/DBPrototype.php>Continue</a>";
+		}
+	}
+	else{
 		echo "Your login credentials are incorrect.";
 	};
 };
+
+function logout($dbPipeline){
+	session_destroy();
+}
 
 function resetPassword ($dbPipeline, $username, $day, $month, $year, $newPassword){
 	//This function TAKES the database connection, username of the user that forgot their password, day, month, and year of that person's date of birth,
