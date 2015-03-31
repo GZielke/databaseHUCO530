@@ -264,5 +264,14 @@ function resetPassword ($dbPipeline, $username, $day, $month, $year, $newPasswor
 	mysqli_query($dbPipeline, $query);
 };
 
-
+function updateEventPoints ($dbPipeline, $eventId, $newPoints) {
+	//This function TAKES the database connection, the id of an event, and the new point value that you want to assign to that event and RETURNS nothing.
+	//This function updates the database with a new value for an event.
+	//Calling the function will look like this:
+	//updateEventPoints($databaseConnection, $eventId of event you want to change, $new point value you want to assign to that event);
+	//This is a function that allows administrators to change the point value of an event. This will automatically update all of the points that
+	//everyone in the database earned from that event.
+	$query = "UPDATE event SET points = '$newPoints' WHERE id = '$eventId'";
+	mysqli_query($dbPipeline, $query);
+};
 ?>
