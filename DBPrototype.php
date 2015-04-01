@@ -70,7 +70,11 @@ if(isset($_POST['logout'])){
 	Event:
 	<input type='text' name='new_event_eventName' id='new_event_eventName' maxlength='50'><br><br>
 	Event Category:
-	<input type='text' name='new_event_eventCategory' id='new_event_eventCategory' maxlength='30'><br><br>
+	<select name='new_event_eventCategory' id='new_event_eventCategory'>
+	<option value='learningEducation'>Learning and Education</option>
+	<option value='healthcare'>Healthcare</option>
+	<option value='selfDevelopment'>Self Development</option>
+	</select><br><br>
 	Event Location:
 	<input type='text' name='new_event_eventLocation' id='new_event_eventLocation' maxlength='30'><br><br>
 	Points:
