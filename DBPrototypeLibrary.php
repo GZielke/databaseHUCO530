@@ -92,6 +92,13 @@ function insertNewCompleteEvent($dbPipeline, $journal, $user, $event){
 	echo "Congratulations! You completed an event!";
 };
 
+function insertMood($dbPipeline,$user,$mood,$journal){
+	$formattedJournal = nl2br(addslashes($journal));
+	$query = "INSERT INTO mtmRegistry(username,dateComplete,mood,journal) VALUES('$user',CURDATE(),'$mood','$formattedJournal')";
+	mysqli_query($dbPipeline,$query);
+	echo "Current mood submitted.";
+}
+
 function timeIn($dbPipeline, $timeInId){
 	//This function TAKES the database connection and a user id and RETURNS nothing.
 	//This function updates the database with the time that the person whose id you enter checks in.

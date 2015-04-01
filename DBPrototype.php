@@ -41,10 +41,28 @@ if(isset($_POST['punchClockSubmit'])){
 if(isset($_POST['logout'])){
 	logout($dbPipeline);
 }
+if(isset($_POST['moodSubmit'])){
+	insertMood($dbPipeline,$_SESSION['id'],$_POST['mood'],$_POST['moodJournal']);
+}
 ?>
 
 <form name='logoutForm' id='logoutForm' method='post'>
 <input type='submit' name='logout' id='logout' value='Log Out'>
+</form>
+
+<h2>Current Mood</h2>
+
+<form name='moodForm' id='moodForm' method='post'>
+From 1 (Happy) to 5 (Sad), how do you feel today?
+<select name='mood' id='mood'>
+<option value='1'>1</option>
+<option value='2'>2</option>
+<option value='3'>3</option>
+<option value='4'>4</option>
+<option value='5'>5</option>
+</select> <br><br>
+<textarea name='moodJournal' id='moodJournal' cols='80' rows='6'></textarea><br><br>
+<input type='submit' id='moodSubmit' name='moodSubmit' value="Submit">
 </form>
 
 <form name='ev_input' id='ev_input' method='post'>
