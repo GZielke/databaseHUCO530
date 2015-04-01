@@ -241,6 +241,7 @@ function login ($dbPipeline, $username, $password){
 		while($cloud = mysqli_fetch_assoc($userCloud)){
 			$_SESSION['loggedin'] = true;
 			$_SESSION['firstName'] = $cloud['firstName'];
+			$_SESSION['username'] = $cloud['username'];
 			echo "Welcome, " . $_SESSION['firstName'] . "! <a href=/kwau/iHuman/DBPrototype.php>Continue</a>";
 		}
 	}
