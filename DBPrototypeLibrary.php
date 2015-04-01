@@ -86,7 +86,7 @@ function insertNewCompleteEvent($dbPipeline, $journal, $user, $event){
 	//This function updates the database with a new completed event by a user. You can access that information with other functions.
 	//Calling the function will look like this:
 	// insertNewCompleteEvent($databaseConnection, $journalEntry, $IdOfPersonWhoCompletedAnEvent, $IdOfEventThePersonCompleted);
-	$formattedJournal = addslashes($journal);
+	$formattedJournal = nl2br(addslashes($journal));
 	$eventCompleteQuery = "INSERT INTO eventCompletion(username, eventName, dateComplete, journal) VALUES('$user', '$event', NOW(), '$formattedJournal')";
 	mysqli_query($dbPipeline, $eventCompleteQuery);
 	echo "Congratulations! You completed an event!";
