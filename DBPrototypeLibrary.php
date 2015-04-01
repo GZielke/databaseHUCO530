@@ -16,9 +16,9 @@ function insertNewUser($dbPipeline, $year, $month, $day, $firstname, $lastname, 
 	if($usernameCheck == 0){
 		$userInsertQuery = "INSERT INTO user VALUES(NULL, '$firstname', '$lastname', '$DOB', '$username', '$password')";
 		mysqli_query($dbPipeline, $userInsertQuery);
-		echo "Inserted new user into the database!";
+		echo "The user " . $username . " is now registered!";
 	} else {
-		echo "Username is already in use. Please choose a new username.";
+		echo "Username is already in use. Please choose another username.";
 	};
 };
 
@@ -162,7 +162,7 @@ function searchUser($dbPipeline, $searchUserId){
 		$firstName = $pointReturnData['firstName'];
 		$lastName = $pointReturnData['lastName'];
 	};
-	echo $lastName;
+	echo "\n" . $lastName;
 	echo ", ";
 	echo $firstName;
 	echo " | ";
@@ -263,7 +263,12 @@ function resetPassword ($dbPipeline, $username, $day, $month, $year, $newPasswor
 	//This function updates the database with a new password for one particular user.
 	$DOB = combineDate($year, $month, $day);
 	$query = "UPDATE user SET password = '$newPassword' WHERE username = '$username' AND dateOfBirth = '$DOB'";
-	mysqli_query($dbPipeline, $query);
+	if(mysqli_query($dbPipeline, $query)){
+		echo "Password successfully changed.";
+	}
+	else{
+		echo "Password not changed. Input not correct.";
+	}
 };
 
 function updateEventPoints ($dbPipeline, $eventId, $newPoints) {

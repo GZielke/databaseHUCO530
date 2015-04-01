@@ -61,7 +61,7 @@ if(isset($_POST['logout'])){
 			wrapInOptionstags(listAllUsers($dbPipeline));
 		?>
 	</select><br><br>
-	<textarea name='ev_input_journal' id='ev_input_journal' cols='80' rows='6' maxlength='999'></textarea>
+	<textarea name='ev_input_journal' id='ev_input_journal' cols='80' rows='6'></textarea>
 	<input type="submit" name="recordEventSubmit" id="recordEventSubmit" value="Record Event">
 </form>
 
