@@ -102,7 +102,6 @@ function timeIn($dbPipeline, $timeInId){
 		//i.e. INSERT INTO clock VALUES(NULL, *user id*, NULL, NULL)
     $timeInQuery = "INSERT INTO clock VALUES(NULL,'$timeInId',NULL,NULL)";
     mysqli_query($dbPipeline,$timeInQuery);
-	echo "You have checked in!";
 };
 
 function timeOut($dbPipeline, $timeOutId){
@@ -115,7 +114,6 @@ function timeOut($dbPipeline, $timeOutId){
 		//We can find the "current" section by adding "WHERE timeIn = timeOut".
     $timeOutQuery = "UPDATE clock SET timeOut = NOW() WHERE username = '$timeOutId' ORDER BY timeIn DESC LIMIT 1";
     mysqli_query($dbPipeline,$timeOutQuery);
-	echo "You have checked out!";
 };
 
 function getEventHistory($dbPipeline, $getEventHistoryId){
@@ -242,8 +240,10 @@ function login ($dbPipeline, $username, $password){
 			$_SESSION['loggedin'] = true;
 			$_SESSION['firstName'] = $cloud['firstName'];
 			$_SESSION['username'] = $cloud['username'];
+			$_SESSION['id'] = $cloud['id'];
 			echo "Welcome, " . $_SESSION['firstName'] . "! <a href=/kwau/iHuman/DBPrototype.php>Continue</a>";
 		}
+		timeIn($dbPipeline,$_SESSION['id']);
 	}
 	else{
 		echo "Your login credentials are incorrect.";
@@ -251,6 +251,7 @@ function login ($dbPipeline, $username, $password){
 };
 
 function logout($dbPipeline){
+	timeOut($dbPipeline,$_SESSION['id']);
 	session_destroy();
 	header("Location: /kwau/iHuman/index.php");
 	exit();
