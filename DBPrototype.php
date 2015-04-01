@@ -29,12 +29,6 @@ if(isset($_POST['recordEventSubmit'])){
 if(isset($_POST['newEventSubmit'])){
 	insertNewEvent($dbPipeline, $_POST['new_event_points'], $_POST['new_event_eventName'], $_POST['new_event_eventCategory'], $_POST['new_event_eventLocation']);
 }
-if(isset($_POST['timeInSubmit'])){
-	 timeIn($dbPipeline, $_POST['timeInId']);
-}
-if(isset($_POST['timeOutSubmit'])){
-	 timeOut($dbPipeline, $_POST['timeOutId']);
-}
 if(isset($_POST['searchUserSubmit'])){
 	searchUser($dbPipeline, $_POST['searchUserId']);
 }
@@ -82,28 +76,6 @@ if(isset($_POST['logout'])){
 	Points:
 	<input type='text' name='new_event_points' id='new_event_points'>
 	<input type="submit" name="newEventSubmit" id="newEventSubmit" value="Create Event">
-</form>
-
-<form name = "timeIn" id = "timeIn" method = "post">
-    <h2>Time In:</h2>
-    User:
-    <select id = "timeInId" name = "timeInId">
-    <?php
-   	 wrapInOptionsTags(listAllUsers($dbPipeline));
-    ?>
-    </select><br><br>
-    <input type = "submit" name = "timeInSubmit" id = "timeInSubmit" value = "Sigh In">
-</form>
-
-<form name = "timeOut" id = "timeOut" method = "post">
-    <h2>Time Out:</h2>
-    User:
-    <select id = "timeOutId" name = "timeOutId">
-    <?php
-   	 wrapInOptionsTags(listAllUsers($dbPipeline));
-    ?>
-    </select><br><br>
-    <input type = "submit" name = "timeOutSubmit" id = "timeOutSubmit" value = "Sigh Out">
 </form>
 
 <form name = "searchUser" id = "searchUser" method = "post">
