@@ -23,79 +23,34 @@ else{
 }
 ?>
 <?php
-if(isset($_POST['registerUserSubmit'])){
-	insertNewUser($dbPipeline, $_POST['user_input_day'], $_POST['user_input_month'], $_POST['user_input_year'], $_POST['user_input_firstName'], $_POST['user_input_lastName'], $_POST['user_input_username'], $_POST['user_input_password']);
-} elseif(isset($_POST['recordEventSubmit'])){
+if(isset($_POST['recordEventSubmit'])){
 	insertNewCompleteEvent($dbPipeline, $_POST['ev_input_journal'], $_POST['ev_input_user'], $_POST['ev_input_event']);
-} elseif(isset($_POST['newEventSubmit'])){
+}
+if(isset($_POST['newEventSubmit'])){
 	insertNewEvent($dbPipeline, $_POST['new_event_points'], $_POST['new_event_eventName'], $_POST['new_event_eventCategory'], $_POST['new_event_eventLocation']);
-} elseif(isset($_POST['timeInSubmit'])){
+}
+if(isset($_POST['timeInSubmit'])){
 	 timeIn($dbPipeline, $_POST['timeInId']);
-} elseif(isset($_POST['timeOutSubmit'])){
+}
+if(isset($_POST['timeOutSubmit'])){
 	 timeOut($dbPipeline, $_POST['timeOutId']);
-} elseif(isset($_POST['searchUserSubmit'])){
+}
+if(isset($_POST['searchUserSubmit'])){
 	searchUser($dbPipeline, $_POST['searchUserId']);
-} elseif(isset($_POST['eventHistorySubmit'])){
+}
+if(isset($_POST['eventHistorySubmit'])){
 	getEventHistory($dbPipeline, $_POST['getEventHistoryId']);
-} elseif(isset($_POST['punchClockSubmit'])){
+}
+if(isset($_POST['punchClockSubmit'])){
 	getPunchClock($dbPipeline, $_POST['getPunchClockId']);
-} elseif(isset($_POST['logout'])){
+}
+if(isset($_POST['logout'])){
 	logout($dbPipeline);
 }
 ?>
 
 <form name='logoutForm' id='logoutForm' method='post'>
 <input type='submit' name='logout' id='logout' value='Log Out'>
-</form>
-
-<form name='user_input' id='user_input' method='post'>
-	<h2>Register New User</h2>
-	First Name:
-	<input type="text" name="user_input_firstName" id="user_input_firstName" value="" maxlength="30"><br><br>
-	Last Name:
-	<input type="text" name="user_input_lastName" id="user_input_lastName" value="" maxlength="30"><br><br>
-	Date of Birth:
-	Month:
-	<select id='user_input_month' name='user_input_month'>
-		<option value='01' selected>January</option>
-		<option value='02' >February</option>
-		<option value='03' >March</option>
-		<option value='04' >April</option>
-		<option value='05' >May</option>
-		<option value='06' >June</option>
-		<option value='07' >July</option>
-		<option value='08' >August</option>
-		<option value='09' >September</option>
-		<option value='10' >October</option>
-		<option value='11' >November</option>
-		<option value='12' >December</option>
-	</select>
-	Day:
-	<select id='user_input_day' name='user_input_day'>
-		<?php
-			print "<option value='01' selected>1</option>";
-			for($i=2; $i<32; $i++){
-				if($i<10){
-					print "<option value='0$i'>$i</option>";
-				}else{
-					print "<option value='$i'>$i</option>";
-				};
-			};
-		?>
-	</select>
-	Year:
-	<select id='user_input_year' name='user_input_year'>
-		<?php
-			for($i=2015; $i>1900; $i--){
-				print "<option value='$i'>$i</option>";
-			};
-		?>
-	</select><br><br>
-	Username:
-	<input type="text" name="user_input_username" id="user_input_username" maxlength="30"><br><br>
-	Password:
-	<input type="password" name="user_input_password" id="user_input_password" maxlength="30"><br><br>
-	<input type="submit" name="registerUserSubmit" id="registerUserSubmit" value="Register">
 </form>
 
 <form name='ev_input' id='ev_input' method='post'>
