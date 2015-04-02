@@ -288,4 +288,27 @@ function updateEventPoints ($dbPipeline, $eventId, $newPoints) {
 	$query = "UPDATE event SET points = '$newPoints' WHERE id = '$eventId'";
 	mysqli_query($dbPipeline, $query);
 };
+
+function getMood ($dbPipeline, $userId){
+	//This function TAKES the database connection and the id of a user and returns the history of that user's mood ratings.
+	//This function doesn't update the database.
+	//Calling this function will look like this:
+	//$variable = getMood($databaseConnection, $IdOfUserYouAreLookingFor);
+	//The array that is returned, $moodArray, will have:
+	//$moodArray[firstName] is the first name of the user you're looking for, $moodArray[lastName] is the last name of the user you're looking for, 
+	//$moodArray[mood] is their mood for that instance,
+	//$moodArray[dateComplete] is the date of that mood, and $moodArray[journal] is the journal entry for that instance.
+	//Each of these arrays are contained within a larger array. So $moodArray[0][mood] is the first "mood", $moodArray[1][mood] is the second, and so on.
+	echo "getMood() is being called.<br>";
+	$moodArray = array();
+	$moodData = '';
+	$query = "SELECT user.firstName, user.lastName, mtmRegistry.mood, mtmRegistry.dateComplete, mtmRegistry.journal FROM user, mtmRegistry WHERE user.id = '$userId' AND user.id = mtmRegistry.username";
+	$moodCloud = mysqli_query($dbPipeline, $query);
+	while($moodData = mysqli_fetch_assoc($moodCloud)){
+		$moodArray[] = $moodData;
+		print_r($moodData);
+		echo "<br>";
+	};
+	return $moodArray;
+};
 ?>

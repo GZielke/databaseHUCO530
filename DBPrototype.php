@@ -44,6 +44,9 @@ if(isset($_POST['logout'])){
 if(isset($_POST['moodSubmit'])){
 	insertMood($dbPipeline,$_SESSION['id'],$_POST['mood'],$_POST['moodJournal']);
 }
+if(isset($_POST['getMoodSubmit'])){
+	getMood($dbPipeline, $_POST['getMoodId']);
+}
 ?>
 
 <form name='logoutForm' id='logoutForm' method='post'>
@@ -128,6 +131,16 @@ From 1 (Happy) to 5 (Sad), how do you feel today?
 		?>
 	</select><br><br>
 	<input type = "submit" name = "punchClockSubmit" id = "punchClockSubmit" value = "View Punch Clock">
+</form>
+
+<form name = "getMood" id = "getMood" method = "post">
+	<h2>Get Mood History for User:</h2>
+	<select id = "getMoodId" name = "getMoodId">
+		<?php
+			wrapInOptionsTags(listAllUsers($dbPipeline));
+		?>
+	</select><br><br>
+	<input type = "submit" name = "getMoodSubmit" id = "getMoodSubmit" value = "View Mood History">
 </form>
 
 </body>
