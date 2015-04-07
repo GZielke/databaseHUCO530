@@ -31,7 +31,9 @@ To do this, you require "index.php", "DBPrototype.php", "DBPrototypeLibrary.php"
 access to an FTP server.
 
 1.	ALL THESE FILES MUST BE IN THE SAME FOLDER. THEY SHOULD BE IN THE FOLDER "MTM".
-	Place the ENTIRE FOLDER on the FTP server.
+	Place the ENTIRE FOLDER on the FTP server. They should be on the FIRST LEVEL
+	of the server and not housed within any other folders for proper redirection,
+	or else you will have to edit that within the php files manually.
 
 	NOTE: This is for proper redirection purposes. The current path for redirection is
 	set to "MTM/index.php" etc. Please have a professional present to alter any
