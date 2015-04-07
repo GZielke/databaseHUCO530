@@ -15,7 +15,7 @@ if(isset($_POST['forgotPasswordSubmit'])){
 	resetPassword($dbPipeline,$_POST['r_username'],$_POST['user_input_day'],$_POST['user_input_month'],$_POST['user_input_year'],$_POST['newPassword']);
 }
 if(isset($_POST['registerUserSubmit'])){
-	insertNewUser($dbPipeline, $_POST['user_input_day'], $_POST['user_input_month'], $_POST['user_input_year'], $_POST['user_input_firstName'], $_POST['user_input_lastName'], $_POST['user_input_username'], $_POST['user_input_password']);
+	insertNewUser($dbPipeline, $_POST['user_input_year'], $_POST['user_input_month'], $_POST['user_input_day'], $_POST['user_input_firstName'], $_POST['user_input_lastName'], $_POST['user_input_username'], $_POST['user_input_password']);
 }
 ?>
 
