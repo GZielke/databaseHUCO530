@@ -27,7 +27,7 @@ if(isset($_POST['recordEventSubmit'])){
 	insertNewCompleteEvent($dbPipeline, $_POST['ev_input_journal'], $_POST['ev_input_user'], $_POST['ev_input_event']);
 }
 if(isset($_POST['newEventSubmit'])){
-	insertNewEvent($dbPipeline, $_POST['new_event_points'], $_POST['new_event_eventName'], $_POST['new_event_eventCategory'], $_POST['new_event_eventLocation'], $_SESSION['id']);
+	insertNewEvent($dbPipeline, $_SESSION['id'], $_POST['new_event_eventName'], $_POST['new_event_eventCategory'], $_POST['new_event_eventLocation'], $_POST['new_event_points']);
 }
 if(isset($_POST['searchUserSubmit'])){
 	searchUser($dbPipeline, $_POST['searchUserId']);

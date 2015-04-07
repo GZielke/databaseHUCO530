@@ -88,7 +88,7 @@ function wrapInOptionsTags($optionArray) {
 	};
 };
 
-function insertNewEvent($dbPipeline, $points, $eventName, $eventCategory, $eventLocation, $userId){
+function insertNewEvent($dbPipeline, $userId, $eventName, $eventCategory, $eventLocation, $points){
 	//This function TAKES the database connection, the point value for a new event, the name of a new event, the category for a new event,
 	//the location for a new event, and a user's id and RETURNS nothing.
 	//This function updates the database with a new event. You can determine the name of the event, its category, location, point value, and the user who created it.
@@ -100,9 +100,10 @@ function insertNewEvent($dbPipeline, $points, $eventName, $eventCategory, $event
 	$realPointInteger = intval($points);
 	$eventName = addslashes($eventName);
 	$eventLocation = addslashes($eventLocation);
-	$eventQuery = "INSERT INTO event VALUES(NULL, '$eventName', '$eventCategory', '$eventLocation', '$realPointInteger', '$userId')";
+	$eventQuery = "INSERT INTO event VALUES(NULL, '$userId', '$eventName', '$eventCategory', '$eventLocation', '$realPointInteger')";
 	mysqli_query($dbPipeline, $eventQuery);
-	echo "New event created!";
+	echo "New event created!\n";
+	echo "The point value of the event is 0 until an admin changes its value.";
 };
 
 function insertNewCompleteEvent($dbPipeline, $journal, $user, $event){
@@ -316,6 +317,7 @@ function updateEventPoints ($dbPipeline, $eventId, $newPoints) {
 	$newPointsInt = intval($newPoints);
 	$query = "UPDATE event SET points = '$newPointsInt' WHERE id = '$eventId'";
 	mysqli_query($dbPipeline, $query);
+	echo "Point value successfully updated!";
 };
 
 function getMood ($dbPipeline, $userId){

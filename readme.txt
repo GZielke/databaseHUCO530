@@ -48,3 +48,12 @@ access to an FTP server.
 3.	Ensure that all functions are properly running. You should be able to log in with
 	the admin account credentials provided above. The admin is capable of adding and
 	editting point values and events. Regular users should not be able to see this.
+
+*********/
+* NOTES *
+/********
+
+1.	If the admin account creates an event, it can be accessed by all users.
+
+2.	Only the admin can allocate point values to events. All other user-created events
+	will have a point value of 0 until changed.
