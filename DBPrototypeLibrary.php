@@ -63,7 +63,7 @@ function listAllEvents($dbPipeline) {
 };
 
 function listCurrentUserEvents($dbPipeline, $userId){
-	$eventCloud = mysqli_query($dbPipeline, "SELECT eventName, id FROM event WHERE user = '$userId' OR user = 1");
+	$eventCloud = mysqli_query($dbPipeline, "SELECT eventName, id FROM event WHERE username = '$userId' OR username = 1");
 	$resultArray = array();
 	while($eventData = mysqli_fetch_assoc($eventCloud)){
 		$resultArray[$eventData['id']] = $eventData['eventName'];
