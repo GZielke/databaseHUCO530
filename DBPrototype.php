@@ -76,7 +76,7 @@ From 1 (Happy) to 5 (Sad), how do you feel today?
 	Event:
 	<select id='ev_input_event' name='ev_input_event'>
 		<?php
-			if($_SESSION['username'] = 'admin'){
+			if($_SESSION['username'] == 'admin'){
 				wrapInOptionsTags(listAllEvents($dbPipeline));
 			}else{
 				wrapInOptionsTags(listCurrentUserEvents($dbPipeline, $_SESSION['id']));
@@ -160,12 +160,12 @@ if($_SESSION['username'] == 'admin'){
 if($_SESSION['username'] == 'admin'){
 	echo '<form name = "updateEventPoints" id = "updateEventPoints" method = "post">
 	<h2>Update Points Value of an Event</h2>
-	<select id = "updateEventPointsId" name = "updateEventPointsId">'
+	<select id = "updateEventPointsId" name = "updateEventPointsId">';
 	wrapInOptionsTags(listAllEvents($dbPipeline));
 	echo '</select><br><br>
 	<input type = "text" name = "newPoints" id = "newPoints">
 	<input type = "submit" name = "updateEventPointsSubmit" id = "updateEventPointsSubmit" value = "Update Event">
-</form>';
+	</form>';
 };
 ?>
 
