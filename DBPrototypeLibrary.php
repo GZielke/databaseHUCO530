@@ -20,7 +20,7 @@ function insertNewUser($dbPipeline, $year, $month, $day, $firstname, $lastname, 
 	if($usernameCheck == 0){
 		$userInsertQuery = "INSERT INTO user VALUES(NULL, '$firstname', '$lastname', '$DOB', '$username', '$password')";
 		mysqli_query($dbPipeline, $userInsertQuery);
-		echo "The user " . $username . " is now registered!";
+		echo "The user " . stripslashes($username) . " is now registered!";
 	} else {
 		echo "Username is already in use. Please choose another username.";
 	};
