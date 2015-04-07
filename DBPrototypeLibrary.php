@@ -54,7 +54,7 @@ function listAllEvents($dbPipeline) {
 	//$EventNameArray = listAllEvents($databaseConnection);
 	//The array that is returned, $resultsArray, will have:
 	//$resultsArray['0'] is the first event name. Each event name is connected to their id value.
-	$eventCloud = mysqli_query($dbPipeline, "SELECT event.eventName, event.id, username.user FROM event, user WHERE event.username = user.id");
+	$eventCloud = mysqli_query($dbPipeline, "SELECT event.eventName, event.id, user.username FROM event, user WHERE event.username = user.id");
 	$resultArray = array();
 	while($eventData = mysqli_fetch_assoc($eventCloud)){
 		$labelledInfo = $eventData['eventName'] . ' - '. $eventData['username'];
