@@ -158,8 +158,7 @@ if($_SESSION['username'] == 'admin'){
 
 <?php
 if($_SESSION['username'] == 'admin'){
-?>
-<form name = "updateEventPoints" id = "updateEventPoints" method = "post">
+echo '<form name = "updateEventPoints" id = "updateEventPoints" method = "post">
 	<h2>Update Points Value of an Event</h2>
 	<select id = "updateEventPointsId" name = "updateEventPointsId">
 	<?php
@@ -168,8 +167,7 @@ if($_SESSION['username'] == 'admin'){
 	</select><br><br>
 	<input type = "text" name = "newPoints" id = "newPoints">
 	<input type = "submit" name = "updateEventPointsSubmit" id = "updateEventPointsSubmit" value = "Update Event">
-</form>
-<?php
+</form>';
 };
 ?>
 
