@@ -62,6 +62,15 @@ function listAllEvents($dbPipeline) {
 	return $resultArray;
 };
 
+function listCurrentUserEvents($dbPipeline, $userId){
+	$eventCloud = mysqli_query($dbPipeline, "SELECT eventName, id FROM event WHERE user = '$userId' OR user = 1");
+	$resultArray = array();
+	while($eventData = mysqli_fetch_assoc($eventCloud)){
+		$resultArray[$eventData['id']] = $eventData['eventName'];
+	};
+	return $resultArray;
+}
+
 function wrapInOptionsTags($optionArray) {
 	//This function just wraps things in option tags. It's only really useful in HTML.
 	//If you combine it with the listAllEvents() or listAllUsers() functions, if creates a selectable list within a form.
