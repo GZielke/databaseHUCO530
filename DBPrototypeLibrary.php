@@ -90,10 +90,11 @@ function wrapInOptionsTags($optionArray) {
 
 function insertNewEvent($dbPipeline, $points, $eventName, $eventCategory, $eventLocation, $userId){
 	//This function TAKES the database connection, the point value for a new event, the name of a new event, the category for a new event,
-	//and the location for a new event, and RETURNS nothing.
-	//This function updates the database with a new event. You can determine the name of the event, its category, location, and point value.
+	//the location for a new event, and a user's id and RETURNS nothing.
+	//This function updates the database with a new event. You can determine the name of the event, its category, location, point value, and the user who created it.
 	//Calling the function will look like this:
-	//insertNewEvent($databaseConnection, $pointValueOfEvent, $nameOfEvent, $categoryOfEvent, $locationOfEvent);
+	//insertNewEvent($databaseConnection, $pointValueOfEvent, $nameOfEvent, $categoryOfEvent, $locationOfEvent, $userId);
+	//A note: if the admin creates a function, it is accessible to all users when using the listCurrentUserEvents() function. 
 	//Below are our notes for interacting with the database:
 		//query INSERT INTO event VALUES(NULL, "eventName", "eventCategory", "eventLocation", "points");
 	$realPointInteger = intval($points);
