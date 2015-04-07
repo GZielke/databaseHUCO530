@@ -79,8 +79,8 @@ From 1 (Happy) to 5 (Sad), how do you feel today?
 			if($_SESSION['username'] = 'admin'){
 				wrapInOptionsTags(listAllEvents($dbPipeline));
 			}else{
-				wrapInOptionsTags(listCurrentUserEvents($dbPipeline, $_SESSION['id']);
-			}
+				wrapInOptionsTags(listCurrentUserEvents($dbPipeline, $_SESSION['id']));
+			};
 		?>
 	</select><br><br>
 	User:
@@ -111,7 +111,7 @@ if($_SESSION['username'] == 'admin'){
 	Points:
 	<input type='text' name='new_event_points' id='new_event_points' value = 0>
 <?php
-}
+};
 ?>
 	<input type="submit" name="newEventSubmit" id="newEventSubmit" value="Create Event">
 </form>
@@ -170,7 +170,7 @@ if($_SESSION['username'] == 'admin'){
 	<input type = "submit" name = "updateEventPointsSubmit" id = "updateEventPointsSubmit" value = "Update Event">
 </form>
 <?php
-}
+};
 ?>
 
 </body>

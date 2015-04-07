@@ -69,7 +69,7 @@ function listCurrentUserEvents($dbPipeline, $userId){
 		$resultArray[$eventData['id']] = $eventData['eventName'];
 	};
 	return $resultArray;
-}
+};
 
 function wrapInOptionsTags($optionArray) {
 	//This function just wraps things in option tags. It's only really useful in HTML.
