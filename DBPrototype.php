@@ -47,6 +47,9 @@ if(isset($_POST['moodSubmit'])){
 if(isset($_POST['getMoodSubmit'])){
 	getMood($dbPipeline, $_POST['getMoodId']);
 }
+if(isset($_POST['updateEventPointsSubmit'])){
+	updateEventPoints($dbPipeline, $_POST['updateEventPointsId'], $_POST['newPoints']);
+}
 ?>
 
 <form name='logoutForm' id='logoutForm' method='post'>
@@ -73,7 +76,11 @@ From 1 (Happy) to 5 (Sad), how do you feel today?
 	Event:
 	<select id='ev_input_event' name='ev_input_event'>
 		<?php
-			wrapInOptionsTags(listAllEvents($dbPipeline));
+			if($_SESSION['username'] = 'admin'){
+				wrapInOptionsTags(listAllEvents($dbPipeline));
+			}else{
+				wrapInOptionsTags(listCurrentUserEvents($dbPipeline, $_SESSION['id']);
+			}
 		?>
 	</select><br><br>
 	User:
@@ -98,8 +105,14 @@ From 1 (Happy) to 5 (Sad), how do you feel today?
 	</select><br><br>
 	Event Location:
 	<input type='text' name='new_event_eventLocation' id='new_event_eventLocation' maxlength='30'><br><br>
+<?php
+if($_SESSION['username'] == 'admin'){
+?>
 	Points:
-	<input type='text' name='new_event_points' id='new_event_points'>
+	<input type='text' name='new_event_points' id='new_event_points' value = 0>
+<?php
+}
+?>
 	<input type="submit" name="newEventSubmit" id="newEventSubmit" value="Create Event">
 </form>
 
@@ -142,6 +155,23 @@ From 1 (Happy) to 5 (Sad), how do you feel today?
 	</select><br><br>
 	<input type = "submit" name = "getMoodSubmit" id = "getMoodSubmit" value = "View Mood History">
 </form>
+
+<?php
+if($_SESSION['username'] == 'admin'){
+?>
+<form name = "updateEventPoints" id = "updateEventPoints" method = "post">
+	<h2>Update Points Value of an Event</h2>
+	<select id = "updateEventPointsId" name = "updateEventPointsId">
+	<?php
+		wrapInOptionsTags(listAllUsers($dbPipeline));
+	?>
+	</select><br><br>
+	<input type = "text" name = "newPoints" id = "newPoints">
+	<input type = "submit" name = "updateEventPointsSubmit" id = "updateEventPointsSubmit" value = "Update Event">
+</form>
+<?php
+}
+?>
 
 </body>
 
