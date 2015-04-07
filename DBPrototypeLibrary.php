@@ -38,7 +38,7 @@ function listAllUsers($dbPipeline) {
 	//$usernameArray = listAllUsers();
 	//The array that is returned, $resultsArray, will have:
 	//$resultsArray['0'] is the first username. Each username is connected to their id value.
-	$userQuery = "SELECT username, id FROM user";
+	$userQuery = "SELECT username, id FROM user WHERE id > 1";
 	$userCloud = mysqli_query($dbPipeline, $userQuery);
 	$resultArray = array();
 	while($userData = mysqli_fetch_assoc($userCloud)){
