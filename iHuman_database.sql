@@ -7,6 +7,7 @@ CREATE TABLE user (
 	username varchar(30) NOT NULL,
 	password varchar(255) NOT NULL
 );
+INSERT INTO user VALUES (NULL,'admin','admin','1911-11-11','admin','password');
 
 DROP TABLE IF EXISTS clock;
 CREATE TABLE clock (
@@ -28,6 +29,7 @@ CREATE TABLE eventCompletion (
 DROP TABLE IF EXISTS event;
 CREATE TABLE event (
 	id tinyint unsigned NOT NULL auto_increment PRIMARY KEY,
+	username tinyint NOT NULL,
 	eventName varchar(50) NOT NULL,
 	eventCategory varchar(30) NOT NULL,
 	eventLocation varchar(30) NOT NULL,
