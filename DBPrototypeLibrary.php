@@ -63,6 +63,14 @@ function listAllEvents($dbPipeline) {
 };
 
 function listCurrentUserEvents($dbPipeline, $userId){
+	//This function TAKES the database connection and a user id and RETURNS a list of events specific to that user and the admin events.
+	//This function doesn't update the database with new information,
+	//Call the function will look like this:
+	//$EventNameArray = listCurrentUserEvents($databaseConnection, $userId);
+	//The array that is returned, $results array, will have:
+	//$resultsArray['*someNumber*'] is an event name. Each event is tied to its id. There's no guarentee that the array starts at one because this function
+	//ONLY returns events created by the user that is logged in. It also returns events craeted by the admin, which allows the database to have a "default"
+	//set of events.
 	$eventCloud = mysqli_query($dbPipeline, "SELECT eventName, id FROM event WHERE username = '$userId' OR username = 1");
 	$resultArray = array();
 	while($eventData = mysqli_fetch_assoc($eventCloud)){
