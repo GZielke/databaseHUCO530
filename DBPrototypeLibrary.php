@@ -57,7 +57,7 @@ function listAllEvents($dbPipeline) {
 	$eventCloud = mysqli_query($dbPipeline, "SELECT event.eventName, event.id, username.user FROM event, user WHERE event.username = user.id");
 	$resultArray = array();
 	while($eventData = mysqli_fetch_assoc($eventCloud)){
-		$labelledInfo = concat($eventData['eventName'], ' - ', $eventData['username']);
+		$labelledInfo = $eventData['eventName'] . ' - '. $eventData['username'];
 		$resultArray[$eventData['id']] = $labelledInfo;
 	};
 	return $resultArray;
