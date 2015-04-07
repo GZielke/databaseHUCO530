@@ -158,13 +158,11 @@ if($_SESSION['username'] == 'admin'){
 
 <?php
 if($_SESSION['username'] == 'admin'){
-echo '<form name = "updateEventPoints" id = "updateEventPoints" method = "post">
+	echo '<form name = "updateEventPoints" id = "updateEventPoints" method = "post">
 	<h2>Update Points Value of an Event</h2>
-	<select id = "updateEventPointsId" name = "updateEventPointsId">
-	<?php
-		wrapInOptionsTags(listAllUsers($dbPipeline));
-	?>
-	</select><br><br>
+	<select id = "updateEventPointsId" name = "updateEventPointsId">'
+	wrapInOptionsTags(listAllEvents($dbPipeline));
+	echo '</select><br><br>
 	<input type = "text" name = "newPoints" id = "newPoints">
 	<input type = "submit" name = "updateEventPointsSubmit" id = "updateEventPointsSubmit" value = "Update Event">
 </form>';
