@@ -13,6 +13,10 @@ function insertNewUser($dbPipeline, $year, $month, $day, $firstname, $lastname, 
 	$DOB = combineDate($year, $month, $day);
 	$userCheckQuery = "SELECT * FROM user WHERE username = '$username'";
 	$usernameCheck = mysqli_num_rows(mysqli_query($dbPipeline, $userCheckQuery));
+	$username = addslashes($username);
+	$firstname = addslashes($firstname);
+	$lastname = addslashes($lastname);
+	$password = addslashes($password);
 	if($usernameCheck == 0){
 		$userInsertQuery = "INSERT INTO user VALUES(NULL, '$firstname', '$lastname', '$DOB', '$username', '$password')";
 		mysqli_query($dbPipeline, $userInsertQuery);
@@ -76,6 +80,8 @@ function insertNewEvent($dbPipeline, $points, $eventName, $eventCategory, $event
 	//Below are our notes for interacting with the database:
 		//query INSERT INTO event VALUES(NULL, "eventName", "eventCategory", "eventLocation", "points");
 	$realPointInteger = intval($points);
+	$eventName = addslashes($eventName);
+	$eventLocation = addslashes($eventLocation);
 	$eventQuery = "INSERT INTO event VALUES(NULL, '$eventName', '$eventCategory', '$eventLocation', '$realPointInteger')";
 	mysqli_query($dbPipeline, $eventQuery);
 	echo "New event created!";
@@ -238,6 +244,8 @@ function login ($dbPipeline, $username, $password){
 	//	Do the thing you want when the person logs in.
 	//};
 	//This function returns a true or false value. Basically, it answers the question, "Does someone with these credentials exists on the database?"
+	$username = addslashes($username);
+	$password = addslashes($password);
 	$query = "SELECT * FROM user WHERE password = '$password' AND username = '$username'";
 	$userCloud = mysqli_query($dbPipeline,$query);
 	$passwordCheck = mysqli_num_rows($userCloud);
@@ -269,6 +277,8 @@ function resetPassword ($dbPipeline, $username, $day, $month, $year, $newPasswor
 	//and the new password they want to input and RETURNS nothing.
 	//This function updates the database with a new password for one particular user.
 	$DOB = combineDate($year, $month, $day);
+	$newPassword = addslashes($newPassword);
+	$username = addslashes($username);
 	$query = "UPDATE user SET password = '$newPassword' WHERE username = '$username' AND dateOfBirth = '$DOB'";
 	if(mysqli_query($dbPipeline, $query)){
 		echo "Password successfully changed.";
