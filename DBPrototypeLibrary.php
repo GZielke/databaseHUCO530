@@ -277,7 +277,8 @@ function login ($dbPipeline, $username, $password){
 			$_SESSION['firstName'] = $cloud['firstName'];
 			$_SESSION['username'] = $cloud['username'];
 			$_SESSION['id'] = $cloud['id'];
-			echo "Welcome, " . $_SESSION['firstName'] . "! <a href=/kwau/iHuman/DBPrototype.php>Continue</a>";
+			header("Location: /kwau/iHuman/DBPrototype.php");
+			exit();
 		}
 		timeIn($dbPipeline,$_SESSION['id']);
 	}
