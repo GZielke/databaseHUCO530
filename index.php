@@ -1,9 +1,21 @@
 <html>
 <head>
+<link href="stylesheet.css" rel="stylesheet" type="text/css">
 <?php
 include_once 'dbconnect.php';
 include_once 'DBPrototypeLibrary.php';
 ?>
+<script type="text/javascript">
+
+function showPassword(){
+	document.getElementById('displayPassword').style.display = "block";
+	document.getElementById('forgotButton').style.display = "none";
+}
+function showRegister(){
+	document.getElementById('displayRegister').style.display = "block";
+	document.getElementById('registerButton').style.display = "none";
+}
+</script>
 </head>
 
 <body>
@@ -27,6 +39,7 @@ Password: <input type='password' name='password' id='password' value='' maxlengt
 <input type='submit' name='loginSubmit' id='loginSubmit' value='Log In'>
 </form>
 
+<div id="displayPassword" name="displayPassword" style="display:none;" class="answer_list">
 <h2>Forgot Password</h2>
 
 <form name='forgotPassword' id='forgotPassword' method='post'>
@@ -68,7 +81,10 @@ Date of Birth:
 New Password: <input type='password' name='newPassword' id='newPassword' value='' maxlength='30'><br><br>
 <input type='submit' name='forgotPasswordSubmit' id='forgotPasswordSubmit' value='Change Password'>
 </form>
+</div>
+<input type="button" id="forgotButton" name="forgotButton" value="Forgot Password" onclick="showPassword()"/>
 
+<div id="displayRegister" name="displayRegister" style="display:none;" class="answer_list">
 <form name='user_input' id='user_input' method='post'>
 	<h2>Register New User</h2>
 	First Name:
@@ -118,5 +134,8 @@ New Password: <input type='password' name='newPassword' id='newPassword' value='
 	<input type="password" name="user_input_password" id="user_input_password" maxlength="30"><br><br>
 	<input type="submit" name="registerUserSubmit" id="registerUserSubmit" value="Register">
 </form>
+</div>
+<input type="button" id="registerButton" name="registerButton" value="Register Account" onclick="showRegister()"/>
+
 </body>
 </html>

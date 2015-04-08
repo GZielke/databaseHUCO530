@@ -1,6 +1,6 @@
 <html>
 <head>
-
+<link href="stylesheet.css" rel="stylesheet" type="text/css">
 <?php 
 include_once 'dbconnect.php';
 include_once 'DBPrototypeLibrary.php';
@@ -11,7 +11,7 @@ session_start();
 <body>
 <?php
 if($_SESSION['loggedin'] == true){
-	echo "You are logged in as " . $_SESSION['firstName'] . ".\n";
+	echo "You are logged in as " . $_SESSION['firstName'] . ".<br><br>";
 }
 else{
 	header("Location: /kwau/iHuman/index.php");
@@ -47,7 +47,6 @@ if(isset($_POST['updateEventPointsSubmit'])){
 	updateEventPoints($dbPipeline, $_POST['updateEventPointsId'], $_POST['newPoints']);
 }
 ?>
-
 <form name='logoutForm' id='logoutForm' method='post'>
 <input type='submit' name='logout' id='logout' value='Log Out'>
 </form>
@@ -85,7 +84,7 @@ From 1 (Happy) to 5 (Sad), how do you feel today?
 			wrapInOptionstags(listAllUsers($dbPipeline));
 		?>
 	</select><br><br>
-	<textarea name='ev_input_journal' id='ev_input_journal' cols='80' rows='6'></textarea>
+	<textarea name='ev_input_journal' id='ev_input_journal' cols='80' rows='6'></textarea><br><br>
 	<input type="submit" name="recordEventSubmit" id="recordEventSubmit" value="Record Event">
 </form>
 
@@ -108,7 +107,7 @@ if($_SESSION['username'] == 'admin'){
 	<input type='text' name='new_event_points' id='new_event_points' value = 0>
 <?php
 };
-?>
+?><br><br>
 	<input type="submit" name="newEventSubmit" id="newEventSubmit" value="Create Event">
 </form>
 
@@ -159,7 +158,7 @@ if($_SESSION['username'] == 'admin'){
 	<select id = "updateEventPointsId" name = "updateEventPointsId">';
 	wrapInOptionsTags(listAllEvents($dbPipeline));
 	echo '</select><br><br>
-	<input type = "text" name = "newPoints" id = "newPoints">
+	<input type = "text" name = "newPoints" id = "newPoints" value=0><br><br>
 	<input type = "submit" name = "updateEventPointsSubmit" id = "updateEventPointsSubmit" value = "Update Event">
 	</form>';
 };
