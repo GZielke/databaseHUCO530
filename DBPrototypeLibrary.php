@@ -54,10 +54,10 @@ function listAllEvents($dbPipeline) {
 	//$EventNameArray = listAllEvents($databaseConnection);
 	//The array that is returned, $resultsArray, will have:
 	//$resultsArray['0'] is the first event name. Each event name is connected to their id value.
-	$eventCloud = mysqli_query($dbPipeline, "SELECT event.eventName, event.id, user.username FROM event, user WHERE event.username = user.id");
+	$eventCloud = mysqli_query($dbPipeline, "SELECT event.eventName, event.id, event.points, user.username FROM event, user WHERE event.username = user.id");
 	$resultArray = array();
 	while($eventData = mysqli_fetch_assoc($eventCloud)){
-		$labelledInfo = $eventData['eventName'] . ' - '. $eventData['username'];
+		$labelledInfo = $eventData['eventName'] . ' - '. $eventData['username'] . ' - ' . $eventData['points'];
 		$resultArray[$eventData['id']] = $labelledInfo;
 	};
 	return $resultArray;
@@ -72,10 +72,11 @@ function listCurrentUserEvents($dbPipeline, $userId){
 	//$resultsArray['*someNumber*'] is an event name. Each event is tied to its id. There's no guarentee that the array starts at one because this function
 	//ONLY returns events created by the user that is logged in. It also returns events craeted by the admin, which allows the database to have a "default"
 	//set of events.
-	$eventCloud = mysqli_query($dbPipeline, "SELECT eventName, id FROM event WHERE username = '$userId' OR username = 1");
+	$eventCloud = mysqli_query($dbPipeline, "SELECT eventName, id, points FROM event WHERE username = '$userId' OR username = 1");
 	$resultArray = array();
 	while($eventData = mysqli_fetch_assoc($eventCloud)){
-		$resultArray[$eventData['id']] = $eventData['eventName'];
+		$labelledInfo = $eventData['eventName'] . ' - ' . $eventData['points'];
+		$resultArray[$eventData['id']] = $labelledInfo;
 	};
 	return $resultArray;
 };

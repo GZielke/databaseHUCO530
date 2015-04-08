@@ -57,3 +57,10 @@ access to an FTP server.
 
 2.	Only the admin can allocate point values to events. All other user-created events
 	will have a point value of 0 until changed.
+	
+**********************/
+* CODE DOCUMENTATION *
+/*********************
+
+The documentation for the code is all located within "DBPrototypeLibrary.php". You can
+find the answers to how code works by opening that file in a text editor.
