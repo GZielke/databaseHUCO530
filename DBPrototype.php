@@ -2,11 +2,7 @@
 <head>
 
 <?php 
-$dbPipeline = mysqli_connect('localhost', 'kwau', 'honied)effluent5pogroms_', 'kwaudb');
-if(!$dbPipeline){
-	die('Error: ' . mysqli_connect_errno() . '.');
-};
-
+include_once 'dbconnect.php';
 include_once 'DBPrototypeLibrary.php';
 session_start();
 ?>
