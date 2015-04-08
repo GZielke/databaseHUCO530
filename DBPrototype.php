@@ -105,9 +105,10 @@ if($_SESSION['username'] == 'admin'){
 ?>
 	Points:
 	<input type='text' name='new_event_points' id='new_event_points' value = 0>
+	<br><br>
 <?php
 };
-?><br><br>
+?>
 	<input type="submit" name="newEventSubmit" id="newEventSubmit" value="Create Event">
 </form>
 
