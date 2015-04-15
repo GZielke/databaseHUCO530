@@ -136,6 +136,5 @@ New Password: <input type='password' name='newPassword' id='newPassword' value='
 </form>
 </div>
 <input type="button" id="forgotButton" name="forgotButton" value="Forgot Password" onclick="showPassword()"/>
-
 </body>
 </html>

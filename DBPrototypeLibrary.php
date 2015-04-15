@@ -275,7 +275,7 @@ function login ($dbPipeline, $username, $password){
 			$_SESSION['firstName'] = $cloud['firstName'];
 			$_SESSION['username'] = $cloud['username'];
 			$_SESSION['id'] = $cloud['id'];
-			header("Location: /kwau/iHuman/DBPrototype.php");
+			header("Location: /MTMdatabase/DBPrototype.php");
 			exit();
 		}
 		timeIn($dbPipeline,$_SESSION['id']);
@@ -289,7 +289,7 @@ function logout($dbPipeline){
 	//This also only works with the HTML session array. Only useful with HTML.
 	timeOut($dbPipeline,$_SESSION['id']);
 	session_destroy();
-	header("Location: /kwau/iHuman/index.php");
+	header("Location: /MTMdatabase/index.php");
 	exit();
 }
 

@@ -14,7 +14,7 @@ if($_SESSION['loggedin'] == true){
 	echo "You are logged in as " . $_SESSION['firstName'] . ".<br><br>";
 }
 else{
-	header("Location: /kwau/iHuman/index.php");
+	header("Location: /MTMdatabase/index.php");
 	exit();
 }
 ?>

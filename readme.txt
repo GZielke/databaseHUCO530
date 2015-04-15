@@ -14,8 +14,19 @@ It is a test database and should NOT be used as the official iHuman database.
 * INSTRUCTIONS *
 /***************
 
+// EDITING DBCONNECT.PHP TO CONNECT TO YOUR MYSQL DATABASE //
+To do this, you require "dbconnect.php"
+
+1. Open dbconnect.php in a simple text editor like Notepad. Do NOT use Microsoft Word.
+
+2. All the values in CAPS must be edited with the correct database information. If this information is incorrect, you will have errors, and nothing will work:
+
+HOST NAME, USERNAME, PASSWORD, DATABASE NAME
+
+This is your MySQL database login information. Please consult whoever is in charge of your hosting for this information.
+
 // UPLOADING FILES FOR FIRST TIME USE //
-To do this, you require "index.php", "DBPrototype.php", "DBPrototypeLibrary.php", "dbconnect.php", "iHuman_database.sql" and access to an FTP server.
+To do this, you require "index.php", "DBPrototype.php", "DBPrototypeLibrary.php", "dbconnect.php", "iHuman_database.sql", "stylesheet.css" and access to an FTP server.
 
 1.	ALL THESE FILES MUST BE IN THE SAME FOLDER. THEY SHOULD BE IN THE FOLDER "MTM".
 	Place the ENTIRE FOLDER on the FTP server. They should be on the FIRST LEVEL
@@ -23,7 +34,7 @@ To do this, you require "index.php", "DBPrototype.php", "DBPrototypeLibrary.php"
 	or else you will have to edit link redirects within the php files manually.
 
 	NOTE: This is for proper redirection purposes. The current path for redirection is
-	set to "MTM/index.php" etc. Please have a professional present to alter any
+	set to "MTMdatabase/index.php" etc. Please have a professional present to alter any
 	link redirects.
 
 // SETTING UP THE DATABASE FOR FIRST TIME USE //
