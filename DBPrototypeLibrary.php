@@ -69,8 +69,8 @@ function listCurrentUserEvents($dbPipeline, $userId){
 	//Call the function will look like this:
 	//$EventNameArray = listCurrentUserEvents($databaseConnection, $userId);
 	//The array that is returned, $results array, will have:
-	//$resultsArray['*someNumber*'] is an event name. Each event is tied to its id. There's no guarentee that the array starts at one because this function
-	//ONLY returns events created by the user that is logged in. It also returns events craeted by the admin, which allows the database to have a "default"
+	//$resultsArray['*someNumber*'] is an event name. Each event is tied to its id. There's no guarantee that the array starts at one because this function
+	//ONLY returns events created by the user that is logged in. It also returns events created by the admin, which allows the database to have a "default"
 	//set of events.
 	$eventCloud = mysqli_query($dbPipeline, "SELECT eventName, id, points FROM event WHERE username = '$userId' OR username = 1");
 	$resultArray = array();
@@ -120,6 +120,10 @@ function insertNewCompleteEvent($dbPipeline, $journal, $user, $event){
 };
 
 function insertMood($dbPipeline,$user,$mood,$journal){
+	//This function TAKES the database connection, a user id, a mood, and a journal entry and RETURNS nothing.
+	//This function updates the database with a new entry into the MTM registry table.
+	//Calling the function will look like this:
+	//insertMood($databaseConnection, $userId, $moodOnAScaleOf1To5, $journalEntry);
 	$formattedJournal = nl2br(addslashes($journal));
 	$query = "INSERT INTO mtmRegistry(username,dateComplete,mood,journal) VALUES('$user',CURDATE(),'$mood','$formattedJournal')";
 	mysqli_query($dbPipeline,$query);
