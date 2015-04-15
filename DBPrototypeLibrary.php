@@ -262,13 +262,7 @@ function findEventId ($dbPipeline, $eventName) {
 };
 
 function login ($dbPipeline, $username, $password){
-	//This function TAKES the database connection, a username, and a password and RETURNS whether or not those are valid credentials to allow you to log in.
-	//This function doesn't update the database with new information.
-	//Calling this function will look like this:
-	//if(login($databaseConnection, $myUsername, $myPassword)){
-	//	Do the thing you want when the person logs in.
-	//};
-	//This function returns a true or false value. Basically, it answers the question, "Does someone with these credentials exists on the database?"
+	//This function creates a HTML session for users. It is only useful with HTML.
 	$username = addslashes($username);
 	$password = addslashes($password);
 	$query = "SELECT * FROM user WHERE password = '$password' AND username = '$username'";
