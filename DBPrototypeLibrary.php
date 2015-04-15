@@ -286,6 +286,7 @@ function login ($dbPipeline, $username, $password){
 };
 
 function logout($dbPipeline){
+	//This also only works with the HTML session array. Only useful with HTML.
 	timeOut($dbPipeline,$_SESSION['id']);
 	session_destroy();
 	header("Location: /kwau/iHuman/index.php");
